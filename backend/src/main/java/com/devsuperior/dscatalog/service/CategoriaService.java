@@ -30,7 +30,7 @@ public class CategoriaService {
 	public List<CategoriaDTO> buscarTodas() {
 		List<Categoria> lista =  categoriaRepository.findAll();
 
-		return lista.stream().map(c -> new CategoriaDTO(c)).collect(Collectors.toList());
+		return lista.stream().map(categoria -> new CategoriaDTO(categoria)).collect(Collectors.toList());
 	}
 
 	@Transactional(readOnly = true)
