@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.devsuperior.dscatalog.dto.CategoriaDTO;
 import com.devsuperior.dscatalog.model.Categoria;
 import com.devsuperior.dscatalog.repository.CategoriaRepository;
+import com.devsuperior.dscatalog.service.exception.ObjectNotFoundException;
 
 @Service
 public class CategoriaService {
@@ -28,7 +29,9 @@ public class CategoriaService {
 	@Transactional(readOnly = true)
 	public CategoriaDTO buscarPorId(Long id) {
 		Optional<Categoria> opt = categoriaRepository.findById(id);
-		Categoria categoria = opt.get();
+		
+		Categoria categoria = opt.orElseThrow(() -> new ObjectNotFoundException("Recurso Buscado: " + id + ", "
+											  + "Objeto Não Localizado: " + Categoria.class.getSimpleName()));
 		
 		return new CategoriaDTO(categoria);
 	}
