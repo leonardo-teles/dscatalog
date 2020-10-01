@@ -7,12 +7,15 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.devsuperior.dscatalog.dto.CategoriaDTO;
 import com.devsuperior.dscatalog.model.Categoria;
 import com.devsuperior.dscatalog.repository.CategoriaRepository;
+import com.devsuperior.dscatalog.service.exception.DataIntegrityException;
 import com.devsuperior.dscatalog.service.exception.ObjectNotFoundException;
 
 @Service
@@ -58,8 +61,19 @@ public class CategoriaService {
 			
 			return new CategoriaDTO(categoria);
 		} catch (EntityNotFoundException e) {
-			throw new ObjectNotFoundException("Id Não Encontrado " + id);
+			throw new ObjectNotFoundException("Id Não Encontrado: " + id);
 		}
 	}
-	
+
+	public void apagar(Long id) {
+		try {
+			categoriaRepository.deleteById(id);
+		
+		} catch(EmptyResultDataAccessException e) {
+			throw new ObjectNotFoundException("Id Número: " + id);
+		
+		} catch(DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos.");
+		}
+	}
 }
