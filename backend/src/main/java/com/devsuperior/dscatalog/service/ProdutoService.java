@@ -14,8 +14,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.devsuperior.dscatalog.dto.CategoriaDTO;
 import com.devsuperior.dscatalog.dto.ProdutoDTO;
+import com.devsuperior.dscatalog.model.Categoria;
 import com.devsuperior.dscatalog.model.Produto;
+import com.devsuperior.dscatalog.repository.CategoriaRepository;
 import com.devsuperior.dscatalog.repository.ProdutoRepository;
 import com.devsuperior.dscatalog.service.exception.DataIntegrityException;
 import com.devsuperior.dscatalog.service.exception.ObjectNotFoundException;
@@ -25,6 +28,9 @@ public class ProdutoService {
 
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private CategoriaRepository categoriaRepository;
 	
 	@Transactional(readOnly = true)
 	public List<ProdutoDTO> buscarTodas() {
@@ -46,7 +52,7 @@ public class ProdutoService {
 	@Transactional
 	public ProdutoDTO salvar(ProdutoDTO dto) {
 		Produto produto = new Produto();
-		//produto.setNome(dto.getNome());
+		converterDeDTO(dto, produto);
 		
 		produto = produtoRepository.save(produto);
 
@@ -57,7 +63,7 @@ public class ProdutoService {
 	public ProdutoDTO atualizar(Long id, ProdutoDTO dto) {
 		try {
 			Produto produto = produtoRepository.getOne(id);
-			//produto.setNome(dto.getNome());
+			converterDeDTO(dto, produto);
 
 			produto = produtoRepository.save(produto);
 			
@@ -84,6 +90,20 @@ public class ProdutoService {
 		Page<Produto> lista = produtoRepository.findAll(pageRequest);
 		
 		return lista.map(produto -> new ProdutoDTO(produto));
+	}
+	
+	private void converterDeDTO(ProdutoDTO dto, Produto produto) {
+		produto.setNome(dto.getNome());
+		produto.setDescricao(dto.getDescricao());
+		produto.setData(dto.getData());
+		produto.setImgUrl(dto.getImgUrl());
+		produto.setPreco(dto.getPreco());
+		
+		produto.getCategorias().clear();
+		for(CategoriaDTO categoriaDTO : dto.getCategorias()) {
+			Categoria categoria = categoriaRepository.getOne(categoriaDTO.getId());
+			produto.getCategorias().add(categoria);
+		}
 	}
 	
 }
