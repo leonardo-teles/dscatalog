@@ -1,3 +1,3 @@
-INSERT INTO categorias (nome) VALUES ('Livros');
-INSERT INTO categorias (nome) VALUES ('Eletrônicos');
-INSERT INTO categorias (nome) VALUES ('Computadores');
+INSERT INTO categorias (nome, criado_em) VALUES ('Livros', NOW());
+INSERT INTO categorias (nome, criado_em) VALUES ('Eletrônicos', NOW());
+INSERT INTO categorias (nome, criado_em) VALUES ('Computadores', NOW());

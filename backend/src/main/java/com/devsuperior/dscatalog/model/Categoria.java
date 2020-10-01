@@ -1,11 +1,15 @@
 package com.devsuperior.dscatalog.model;
 
 import java.io.Serializable;
+import java.time.Instant;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity
@@ -18,6 +22,12 @@ public class Categoria implements Serializable {
 	private Long id;
 	
 	private String nome;
+	
+	@Column(name = "criado_em", columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	private Instant criadoEm;
+
+	@Column(name = "atualizado_em", columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	private Instant atualizadoEm;
 
 	public Categoria() {}
 
@@ -40,6 +50,24 @@ public class Categoria implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	
+	public Instant getCriadoEm() {
+		return criadoEm;
+	}
+
+	public Instant getAtualizadoEm() {
+		return atualizadoEm;
+	}
+	
+	@PrePersist
+	public void preInserir() {
+		criadoEm = Instant.now();
+	}
+	
+	@PreUpdate
+	public void preAtualizar() {
+		atualizadoEm = Instant.now();
 	}
 
 	@Override

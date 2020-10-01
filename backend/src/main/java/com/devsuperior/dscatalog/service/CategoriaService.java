@@ -60,6 +60,7 @@ public class CategoriaService {
 			categoria = categoriaRepository.save(categoria);
 			
 			return new CategoriaDTO(categoria);
+			
 		} catch (EntityNotFoundException e) {
 			throw new ObjectNotFoundException("Id Não Encontrado: " + id);
 		}
