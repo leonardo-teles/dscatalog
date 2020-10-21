@@ -1,5 +1,7 @@
 import React from 'react';
 import { ReactComponent as MainImage } from '../../core/assets/imagens/main.svg';
+import ButtonIcon from '../../core/components/buttonIcon';
+import { Link } from 'react-router-dom';
 import './styles.scss'
 
 const Home = () => (
@@ -12,6 +14,9 @@ const Home = () => (
                 <p className="subtitulo-texto">
                     Ajudaremos você a encontrar os melhores produtos disponíveis no mercado.
                 </p>
+                <Link to="/catalogo">
+                    <ButtonIcon text="inicie agora a sua busca" />
+                </Link>    
             </div>
             <div className="col-6">
                 <MainImage className="imagem-principal"/>
