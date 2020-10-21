@@ -1,8 +1,22 @@
 import React from 'react';
+import { ReactComponent as MainImage } from '../../core/assets/imagens/main.svg';
+import './styles.scss'
 
 const Home = () => (
-    <div>
-        <h1>Home</h1>
+    <div className="home-container">
+        <div className="row home-content">
+            <div className="col-6 home-text">
+                <h1 className="titulo-texto">
+                    Conheça o melhor catálogo de produtos
+                </h1>
+                <p className="subtitulo-texto">
+                    Ajudaremos você a encontrar os melhores produtos disponíveis no mercado.
+                </p>
+            </div>
+            <div className="col-6">
+                <MainImage className="imagem-principal"/>
+            </div>
+        </div>
     </div>
 );
 
