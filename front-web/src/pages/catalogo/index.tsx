@@ -1,4 +1,5 @@
 import React from 'react';
+import CardProduto from './components/cardProduto';
 import './styles.scss'
 
 const Catalogo = () => (
@@ -7,6 +8,16 @@ const Catalogo = () => (
             Catálogo de Produtos
         </h1>
         <div className="catalogo-produtos">
+            <CardProduto/>
+            <CardProduto/>
+            <CardProduto/>
+            <CardProduto/>
+            <CardProduto/><CardProduto/>
+            <CardProduto/>
+            <CardProduto/>
+            <CardProduto/>
+            <CardProduto/>
+            <CardProduto/><CardProduto/>
 
         </div>
     </div>
