@@ -9,9 +9,9 @@ Irá incluir login e senha para acesso e recurso de recuperação de senha.
 
 ### ➤ Features
 
-<img src="https://img.shields.io/badge/CRUD%20de%20Categorias-100%25-success"/>&nbsp
-<img src="https://img.shields.io/badge/CRUD%20de%20Produtos-100%25-success"/>&nbsp
-<img src="https://img.shields.io/badge/CRUD%20de%20Usu%C3%A1rios-0%25-red"/>&nbsp
+<img src="https://img.shields.io/badge/CRUD%20de%20Categorias-100%25-success"/>
+<img src="https://img.shields.io/badge/CRUD%20de%20Produtos-100%25-success"/>
+<img src="https://img.shields.io/badge/CRUD%20de%20Usu%C3%A1rios-0%25-red"/>
 <img src="https://img.shields.io/badge/Seguran%C3%A7a-0%25-red"/>
 
 ### ➤ Tecnologias

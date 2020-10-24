@@ -3,3 +3,26 @@
     padding-left: 40px;
     padding-right: 40px;
 }
+
+.detalhe-produto {
+    padding: 50px 60px 90px 60px;
+}
+
+.link-detalhe-produto {
+    display: flex;
+    align-items: center;    
+}
+
+.icone-voltar {
+    color: #407BFF;
+    transform: rotate(-180deg);
+    margin-right: 30px;
+}
+
+.texto-voltar {
+    font-size: 24px;
+    line-height: 33px;
+    letter-spacing: -0.015em;
+    color: #263238;
+    text-transform: uppercase;
+}
