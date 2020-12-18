@@ -1,8 +1,6 @@
 package com.devsuperior.dscatalog.service;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -26,11 +24,12 @@ public class CategoriaService {
 	@Autowired
 	private CategoriaRepository categoriaRepository;
 	
+	
 	@Transactional(readOnly = true)
-	public List<CategoriaDTO> buscarTodas() {
-		List<Categoria> lista =  categoriaRepository.findAll();
-
-		return lista.stream().map(categoria -> new CategoriaDTO(categoria)).collect(Collectors.toList());
+	public Page<CategoriaDTO> buscarTodasComPaginacao(PageRequest pageRequest) {
+		Page<Categoria> lista = categoriaRepository.findAll(pageRequest);
+		
+		return lista.map(categoria -> new CategoriaDTO(categoria));
 	}
 
 	@Transactional(readOnly = true)
@@ -68,6 +67,7 @@ public class CategoriaService {
 		}
 	}
 
+	@Transactional
 	public void apagar(Long id) {
 		try {
 			categoriaRepository.deleteById(id);
@@ -78,11 +78,5 @@ public class CategoriaService {
 		} catch(DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos.");
 		}
-	}
-
-	public Page<CategoriaDTO> listarComPaginacao(PageRequest pageRequest) {
-		Page<Categoria> lista = categoriaRepository.findAll(pageRequest);
-		
-		return lista.map(categoria -> new CategoriaDTO(categoria));
 	}
 }

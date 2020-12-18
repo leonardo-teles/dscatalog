@@ -1,8 +1,6 @@
 package com.devsuperior.dscatalog.service;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -33,10 +31,10 @@ public class ProdutoService {
 	private CategoriaRepository categoriaRepository;
 	
 	@Transactional(readOnly = true)
-	public List<ProdutoDTO> buscarTodas() {
-		List<Produto> lista =  produtoRepository.findAll();
-
-		return lista.stream().map(produto -> new ProdutoDTO(produto)).collect(Collectors.toList());
+	public Page<ProdutoDTO> buscarTodosComPaginacao(PageRequest pageRequest) {
+		Page<Produto> lista = produtoRepository.findAll(pageRequest);
+		
+		return lista.map(produto -> new ProdutoDTO(produto));
 	}
 
 	@Transactional(readOnly = true)
@@ -74,6 +72,7 @@ public class ProdutoService {
 		}
 	}
 
+	@Transactional
 	public void apagar(Long id) {
 		try {
 			produtoRepository.deleteById(id);
@@ -86,12 +85,6 @@ public class ProdutoService {
 		}
 	}
 
-	public Page<ProdutoDTO> listarComPaginacao(PageRequest pageRequest) {
-		Page<Produto> lista = produtoRepository.findAll(pageRequest);
-		
-		return lista.map(produto -> new ProdutoDTO(produto));
-	}
-	
 	private void converterDeDTO(ProdutoDTO dto, Produto produto) {
 		produto.setNome(dto.getNome());
 		produto.setDescricao(dto.getDescricao());

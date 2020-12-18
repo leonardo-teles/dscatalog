@@ -1,7 +1,6 @@
 package com.devsuperior.dscatalog.resource;
 
 import java.net.URI;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,10 +29,17 @@ public class ProdutoResource {
 	private ProdutoService produtoService;
 	
 	@GetMapping
-	public ResponseEntity<List<ProdutoDTO>> buscarTodas() {
-		List<ProdutoDTO> lista = produtoService.buscarTodas();
+	public ResponseEntity<Page<ProdutoDTO>> buscarTodosComPaginacao(
+			@RequestParam(value = "pagina", defaultValue = "0") Integer pagina, 
+			@RequestParam(value = "linhasPorPagina", defaultValue = "12") Integer linhasPorPagina, 
+			@RequestParam(value = "direcaoOrdenacao", defaultValue = "ASC") String direcaoOrdenacao,
+			@RequestParam(value = "ordenarPor", defaultValue = "nome") String ordernarPor) {
 		
-		return ResponseEntity.ok().body(lista);
+		PageRequest pageRequest = PageRequest.of(pagina, linhasPorPagina, Direction.valueOf(direcaoOrdenacao), ordernarPor);
+		
+		Page<ProdutoDTO> pageDto = produtoService.buscarTodosComPaginacao(pageRequest);
+		
+		return ResponseEntity.ok().body(pageDto);
 	}
 	
 	@GetMapping("/{id}")
@@ -65,18 +71,4 @@ public class ProdutoResource {
 		
 		return ResponseEntity.noContent().build();
 	}	
-	
-	@GetMapping(value = "/page")
-	public ResponseEntity<Page<ProdutoDTO>> listarComPaginacao(@RequestParam(value = "pagina", defaultValue = "0") Integer pagina, 
-			@RequestParam(value = "linhasPorPagina", defaultValue = "24") Integer linhasPorPagina, 
-			@RequestParam(value = "ordenarPor", defaultValue = "nome") String ordernarPor, 
-			@RequestParam(value = "direcaoOrdenacao", defaultValue = "ASC") String direcaoOrdenacao) {
-		
-		PageRequest pageRequest = PageRequest.of(pagina, linhasPorPagina, Direction.valueOf(direcaoOrdenacao), ordernarPor);
-		
-		Page<ProdutoDTO> pageDto = produtoService.listarComPaginacao(pageRequest);
-		
-		return ResponseEntity.ok().body(pageDto);
-	}
-	
 }
