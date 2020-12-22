@@ -8,31 +8,15 @@
     text-align: left;
     padding-top: 15px;
     margin-top: 15px;
-    color: #263238;
 }
 
 .nome-produto {
     font-size: 18px;
     line-height: 25px;
     letter-spacing: -0.015em;
+    color: #263238;
 }
 
-.preco-produto-container {
-    margin-top: 25px;
-    display: flex;
-}
-
-.moeda {
-    font-size: 18px;
-    line-height: 25px;
-    letter-spacing: -0.015em;   
-    color: #9E9E9E;
-}
-
-.preco-produto {
-    font-size: 32px;
-    line-height: 44px;
-    letter-spacing: -0.015em;
-    color: #407BFF;
-    margin-left: 10px;
+.card-produto .preco-produto {
+    font-size: 28px;
 }

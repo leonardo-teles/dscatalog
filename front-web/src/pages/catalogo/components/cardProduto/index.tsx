@@ -1,6 +1,7 @@
 import React from 'react';
-import { ReactComponent as ProdutoImage } from '../../../../core/assets/imagens/produtos.svg'
-import './styles.scss'
+import { ReactComponent as ProdutoImage } from '../../../../core/assets/imagens/produtos.svg';
+import PrecoProduto from '../../../../core/components/precoProduto';
+import './styles.scss';
 
 const CardProduto = () => (
     <div className="card-base border-radius-10 card-produto">
@@ -9,10 +10,7 @@ const CardProduto = () => (
             <h6 className="nome-produto">
                 Computador Desktop - Intel Core i7
             </h6>
-            <div className="preco-produto-container">
-                <span className="moeda">R$</span>
-                <h3 className="preco-produto">2.779,00</h3>
-            </div>
+            <PrecoProduto preco="2.779,00"/>
         </div>
     </div>
 );
