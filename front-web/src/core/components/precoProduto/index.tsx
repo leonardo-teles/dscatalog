@@ -2,7 +2,7 @@ import React from 'react';
 import './styles.scss';
 
 type Props = {
-    preco: string;
+    preco: number;
 }
 
 const PrecoProduto = ({ preco }: Props) => (

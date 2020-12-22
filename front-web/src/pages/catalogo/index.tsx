@@ -12,7 +12,7 @@ const Catalogo = () => {
     useEffect(() => {
         const params = {
             pagina: 0,
-            linhasPorPagina: 5
+            linhasPorPagina: 12
         }
 
         makeRequest({ url: '/produtos', params })
@@ -28,7 +28,7 @@ const Catalogo = () => {
                 {
                     produtosResponse?.content.map(produto => (
                         <Link to="/produtos/1" key={produto.id}>
-                            <CardProduto/>
+                            <CardProduto produto={produto}/>
                         </Link>
                     ))
                 }    
