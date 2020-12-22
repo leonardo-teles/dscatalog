@@ -1,16 +1,21 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { makeRequest } from '../../core/utils/request';
+
 import CardProduto from './components/cardProduto';
 import './styles.scss'
 
 const Catalogo = () => {
-    //quando o componente iniciar, buscar a lista de produtos
-
     //quando a lista de produtos estiver disponível, popular um estado no componente e listar os produtos dinâmicamente
-
+    
+    //quando o componente iniciar, buscar a lista de produtos
     useEffect(() => {
-        fetch('http://localhost:3000/produtos')
-            .then(response => response.json())
+        const params = {
+            pagina: 0,
+            linhasPorPagina: 12
+        }
+
+        makeRequest({ url: '/produtos', params })
             .then(response => console.log(response));
     }, []);
     
