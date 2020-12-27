@@ -29,7 +29,7 @@ const DetalheProduto = () => {
                         <h1 className="nome-detalhe-produto">
                             Computador Desktop - Intel Core i7
                         </h1>
-                        <PrecoProduto preco={3.799}/>
+                        <PrecoProduto preco={3799}/>
                     </div>
                     <div className="col-6 card-detalhe-produto">
                         <h1 className="titulo-descricao-produto">Descrição do Produto</h1>
