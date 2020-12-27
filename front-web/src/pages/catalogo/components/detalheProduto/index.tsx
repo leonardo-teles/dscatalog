@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ReactComponent as ArrowIcon } from '../../../../core/assets/imagens/arrow.svg'
-import { ReactComponent as ProdutoImage } from '../../../../core/assets/imagens/produtos.svg'
 import PrecoProduto from '../../../../core/components/precoProduto';
+import { Produto } from '../../../../core/types/Produto';
+import { makeRequest } from '../../../../core/utils/request';
 import './styles.scss';
 
 type ParamsType = {
@@ -11,8 +12,12 @@ type ParamsType = {
 
 const DetalheProduto = () => {
     const { idProduto } = useParams<ParamsType>();
+    const [produto, setProduto] = useState<Produto>();
 
-    console.log(idProduto);
+    useEffect(() => {
+        makeRequest({ url: `/produtos/${idProduto}` })
+            .then(response => setProduto(response.data));
+    }, [idProduto]);
 
     return (
         <div className="detalhe-produto-container">
@@ -24,22 +29,18 @@ const DetalheProduto = () => {
                 <div className="row">
                     <div className="col-6 pr-5">
                         <div className="card-detalhe-produto text-center">
-                            <ProdutoImage className="imagem-detalhe-produto"/>
+                            <img src={produto?.imgUrl} alt={produto?.nome} className="imagem-detalhe-produto"/>
                         </div>
                         <h1 className="nome-detalhe-produto">
-                            Computador Desktop - Intel Core i7
+                            {produto?.nome}
                         </h1>
-                        <PrecoProduto preco={3799}/>
+                        { produto?.preco && <PrecoProduto preco={produto?.preco}/> }
                     </div>
                     <div className="col-6 card-detalhe-produto">
                         <h1 className="titulo-descricao-produto">Descrição do Produto</h1>
 
                         <p className="text-descricao-produto">
-                            Seja um mestre em multitarefas com a capacidade para exibir quatro
-                            aplicativos simultâneos na tela. A tela está ficando abarrotada?
-                            Crie áreas de trabalho virtuais para obter mais espaço e trabalhe
-                            com os itens que você deseja. Além disso, todas as notificações e 
-                            principais configurações são reunidas em uma única tela de fácil acesso.
+                            {produto?.descricao}
                         </p>
                     </div>
                 </div>
