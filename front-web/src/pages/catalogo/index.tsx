@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ProdutosResponse } from '../../core/types/Produto';
 import { makeRequest } from '../../core/utils/request';
-import CardLoaderProduto from './components/cardLoaderProduto';
+import CardLoaderProduto from './components/loaders/CardLoaderProduto';
 
 import CardProduto from './components/cardProduto';
 import './styles.scss'
@@ -17,12 +17,10 @@ const Catalogo = () => {
             linhasPorPagina: 12
         }
 
-        // inicar o loader
         setIsLoading(true);
         makeRequest({ url: '/produtos', params })
             .then(response => setProdutosResponse(response.data))
             .finally(() => {
-                // finalizar o loader
                 setIsLoading(false);
             });
     }, []);

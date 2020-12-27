@@ -1,8 +1,9 @@
 import React from "react"
 import ContentLoader from "react-content-loader"
+import { generateList } from "../../../../core/utils/list";
 
 const CardLoaderProduto = () => {
-    const loaderItems = [0,1,2];
+    const loaderItems = generateList(3);
 
     return (
         <>
@@ -17,7 +18,6 @@ const CardLoaderProduto = () => {
                     foregroundColor="#d6d2d2">
                     <rect x="0" y="-1" rx="10" ry="10" width="250" height="335" />
                 </ContentLoader>
-
             ))}
         </>
     )

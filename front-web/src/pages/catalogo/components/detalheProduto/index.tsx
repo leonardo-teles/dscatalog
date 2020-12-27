@@ -4,6 +4,8 @@ import { ReactComponent as ArrowIcon } from '../../../../core/assets/imagens/arr
 import PrecoProduto from '../../../../core/components/precoProduto';
 import { Produto } from '../../../../core/types/Produto';
 import { makeRequest } from '../../../../core/utils/request';
+import LoaderDescricaoProduto from '../loaders/LoaderDescricaoProduto';
+import LoaderInformacaoProduto from '../loaders/LoaderInformacaoProduto';
 import './styles.scss';
 
 type ParamsType = {
@@ -13,10 +15,14 @@ type ParamsType = {
 const DetalheProduto = () => {
     const { idProduto } = useParams<ParamsType>();
     const [produto, setProduto] = useState<Produto>();
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
+        setIsLoading(true);
         makeRequest({ url: `/produtos/${idProduto}` })
-            .then(response => setProduto(response.data));
+            .then(response => setProduto(response.data))
+            .finally(() => setIsLoading(false));
+
     }, [idProduto]);
 
     return (
@@ -28,20 +34,27 @@ const DetalheProduto = () => {
                 </Link>
                 <div className="row">
                     <div className="col-6 pr-5">
-                        <div className="card-detalhe-produto text-center">
-                            <img src={produto?.imgUrl} alt={produto?.nome} className="imagem-detalhe-produto"/>
-                        </div>
-                        <h1 className="nome-detalhe-produto">
-                            {produto?.nome}
-                        </h1>
-                        { produto?.preco && <PrecoProduto preco={produto?.preco}/> }
+                        {isLoading ? <LoaderInformacaoProduto/> : (
+                            <>
+                                <div className="card-detalhe-produto text-center">
+                                    <img src={produto?.imgUrl} alt={produto?.nome} className="imagem-detalhe-produto"/>
+                                </div>
+                                <h1 className="nome-detalhe-produto">
+                                    {produto?.nome}
+                                </h1>
+                                { produto?.preco && <PrecoProduto preco={produto?.preco}/> }
+                            </>
+                        )}
                     </div>
                     <div className="col-6 card-detalhe-produto">
-                        <h1 className="titulo-descricao-produto">Descrição do Produto</h1>
-
-                        <p className="text-descricao-produto">
-                            {produto?.descricao}
-                        </p>
+                        {isLoading ? <LoaderDescricaoProduto/> : (
+                            <>
+                                <h1 className="titulo-descricao-produto">Descrição do Produto</h1>
+                                <p className="text-descricao-produto">
+                                    {produto?.descricao}
+                                </p>
+                            </>
+                        )}    
                     </div>
                 </div>
             </div>
