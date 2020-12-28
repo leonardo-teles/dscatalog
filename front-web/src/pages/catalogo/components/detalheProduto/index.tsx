@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ReactComponent as ArrowIcon } from '../../../../core/assets/imagens/arrow.svg'
-import PrecoProduto from '../../../../core/components/precoProduto';
+
+import { ReactComponent as ArrowIcon } from 'core/assets/imagens/arrow.svg'
+import PrecoProduto from 'core/components/precoProduto';
 import { Produto } from '../../../../core/types/Produto';
 import { makeRequest } from '../../../../core/utils/request';
+
 import LoaderDescricaoProduto from '../loaders/LoaderDescricaoProduto';
 import LoaderInformacaoProduto from '../loaders/LoaderInformacaoProduto';
 import './styles.scss';
