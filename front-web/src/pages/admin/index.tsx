@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Navbar from './components/navbar';
+import Produtos from './components/produtos';
 
 import './styles.scss';
 
@@ -10,7 +11,7 @@ const Admin = () => (
         <div className="conteudo-admin">
             <Switch>
                 <Route path="/admin/produtos">
-                    <h5>Produtos</h5>
+                    <Produtos />
                 </Route>
                 <Route path="/admin/categorias">
                     <h5>Categorias</h5>
