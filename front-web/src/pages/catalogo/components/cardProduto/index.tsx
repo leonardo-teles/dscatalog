@@ -1,6 +1,6 @@
 import React from 'react';
-import PrecoProduto from '../../../../core/components/precoProduto';
-import { Produto } from '../../../../core/types/Produto';
+import PrecoProduto from 'core/components/precoProduto';
+import { Produto } from 'core/types/Produto';
 import './styles.scss';
 
 type Props = {

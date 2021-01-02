@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ProdutosResponse } from '../../core/types/Produto';
-import { makeRequest } from '../../core/utils/request';
+import { ProdutosResponse } from 'core/types/Produto';
+import { makeRequest } from 'core/utils/request';
 import CardLoaderProduto from './components/loaders/CardLoaderProduto';
 
 import CardProduto from './components/cardProduto';
+import Paginacao from 'core/components/paginacao';
 import './styles.scss'
 
 const Catalogo = () => {
@@ -39,6 +40,7 @@ const Catalogo = () => {
                     ))
                 )}
             </div>
+            <Paginacao />
         </div>
     );
 }
