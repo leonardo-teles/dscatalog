@@ -11,10 +11,15 @@ type Props = {
 
 const Paginacao = ({ totalPaginas, paginaAtiva, onChange }: Props) => {
     const itens = generateList(totalPaginas);
+    const regressar = totalPaginas > 0 && paginaAtiva > 0 ? 'pagina-ativa' : 'pagina-inativa';
+    const avancar = (paginaAtiva + 1) < totalPaginas ? 'pagina-ativa' : 'pagina-inativa'; 
 
     return (
         <div className="container-paginacao">
-            <ArrowIcon className="paginacao-anterior"/>
+            <ArrowIcon 
+                className={`paginacao-anterior ${regressar}`}
+                onClick={() => onChange(paginaAtiva - 1)}
+            />
 
             {itens.map(item => (
                 <div
@@ -26,7 +31,10 @@ const Paginacao = ({ totalPaginas, paginaAtiva, onChange }: Props) => {
                 </div>
             ))}
 
-            <ArrowIcon className="paginacao-proximo"/>
+            <ArrowIcon 
+                className={`paginacao-proximo ${avancar}`}
+                onClick={() => onChange(paginaAtiva + 1)}
+            />
         </div>
         
     );
