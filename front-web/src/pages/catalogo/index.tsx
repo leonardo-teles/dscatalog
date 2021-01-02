@@ -11,10 +11,11 @@ import './styles.scss'
 const Catalogo = () => {
     const [produtosResponse, setProdutosResponse] = useState<ProdutosResponse>();
     const [isLoading, setIsLoading] = useState(false);
+    const [paginaAtiva, setPaginaAtiva] = useState(0);
 
     useEffect(() => {
         const params = {
-            pagina: 0,
+            pagina: paginaAtiva,
             linhasPorPagina: 12
         }
 
@@ -24,7 +25,7 @@ const Catalogo = () => {
             .finally(() => {
                 setIsLoading(false);
             });
-    }, []);
+    }, [paginaAtiva]);
     
     return (
         <div className="catalogo-container">
@@ -40,7 +41,13 @@ const Catalogo = () => {
                     ))
                 )}
             </div>
-            <Paginacao />
+            {produtosResponse && (
+                <Paginacao 
+                    paginaAtiva={paginaAtiva}
+                    totalPaginas={produtosResponse.totalPages} 
+                    onChange={pagina => setPaginaAtiva(pagina)}
+                />
+            )}
         </div>
     );
 }
