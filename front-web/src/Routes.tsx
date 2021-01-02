@@ -19,8 +19,8 @@ const Routes = () => (
             <Route path="/produtos/:idProduto">
                 <DetalheProduto/>
             </Route>
+            <Redirect from="/admin" to="/admin/produtos" exact/>
             <Route path="/admin">
-                <Redirect to="/admin/produtos"/>
                 <Admin/>
             </Route>
         </Switch>
