@@ -5,7 +5,7 @@ Irá incluir login e senha para acesso e recurso de recuperação de senha.
 
 ### ➤ Status do Projeto
 
-<img src="https://img.shields.io/badge/Em%20Constru%C3%A7%C3%A3o-50%25-yellow"/>
+<img src="https://img.shields.io/badge/Em%20Constru%C3%A7%C3%A3o-60%25-yellow"/>
 
 ### ➤ Features
 
