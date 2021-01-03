@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import Formulario from './formulario';
 import Lista from './lista';
 
 import './styles.scss';
@@ -12,7 +13,7 @@ const Produtos = () => {
                     <Lista/>
                 </Route>
                 <Route path="/admin/produtos/novo">
-                    <h5>Novo produto</h5>
+                    <Formulario />
                 </Route>
                 <Route path="/admin/produtos/:produtoId">
                     <h5>Editar produto</h5>
