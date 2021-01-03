@@ -1,3 +1,13 @@
+INSERT INTO usuarios (nome, sobrenome, email, senha) VALUES ('Leonardo', 'Almeida', 'leonardo@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG');
+INSERT INTO usuarios (nome, sobrenome, email, senha) VALUES ('Manuela', 'Almeida', 'manuela@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG');
+
+INSERT INTO perfis (descricao) VALUES ('ROLE_OPERADOR');
+INSERT INTO perfis (descricao) VALUES ('ROLE_ADMIN');
+
+INSERT INTO usuario_perfil (usuario_id, perfil_id) VALUES (1, 1);
+INSERT INTO usuario_perfil (usuario_id, perfil_id) VALUES (2, 1);
+INSERT INTO usuario_perfil (usuario_id, perfil_id) VALUES (2, 2);
+
 INSERT INTO categorias (nome, criado_em) VALUES ('Livros', NOW());
 INSERT INTO categorias (nome, criado_em) VALUES ('Eletrônicos', NOW());
 INSERT INTO categorias (nome, criado_em) VALUES ('Computadores', NOW());
