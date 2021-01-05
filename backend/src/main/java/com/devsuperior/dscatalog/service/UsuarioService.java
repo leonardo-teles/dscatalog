@@ -80,7 +80,6 @@ public class UsuarioService {
 		}
 	}
 
-	@Transactional
 	public void apagar(Long id) {
 		try {
 			usuarioRepository.deleteById(id);
@@ -89,7 +88,7 @@ public class UsuarioService {
 			throw new ObjectNotFoundException("Id Número: " + id);
 		
 		} catch(DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Não é possível excluir uma usuario que possui usuarios.");
+			throw new DataIntegrityException("Erro ao excluir o usuário.");
 		}
 	}
 

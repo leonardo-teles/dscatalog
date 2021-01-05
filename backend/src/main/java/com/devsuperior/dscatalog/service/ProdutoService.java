@@ -72,7 +72,6 @@ public class ProdutoService {
 		}
 	}
 
-	@Transactional
 	public void apagar(Long id) {
 		try {
 			produtoRepository.deleteById(id);
@@ -81,7 +80,7 @@ public class ProdutoService {
 			throw new ObjectNotFoundException("Id Número: " + id);
 		
 		} catch(DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Não é possível excluir uma produto que possui produtos.");
+			throw new DataIntegrityException("Erro ao excluir o produto.");
 		}
 	}
 

@@ -67,7 +67,6 @@ public class CategoriaService {
 		}
 	}
 
-	@Transactional
 	public void apagar(Long id) {
 		try {
 			categoriaRepository.deleteById(id);
