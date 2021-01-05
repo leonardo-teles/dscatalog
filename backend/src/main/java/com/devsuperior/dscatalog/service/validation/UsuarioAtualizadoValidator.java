@@ -11,12 +11,12 @@ import javax.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerMapping;
 
-import com.devsuperior.dscatalog.dto.UsuarioDTO;
+import com.devsuperior.dscatalog.dto.UsuarioAtualizadoDTO;
 import com.devsuperior.dscatalog.model.Usuario;
 import com.devsuperior.dscatalog.repository.UsuarioRepository;
 import com.devsuperior.dscatalog.resource.exception.FieldMessage;
 
-public class UsuarioAtualizadoValidator implements ConstraintValidator<UsuarioAtualizado, UsuarioDTO> {
+public class UsuarioAtualizadoValidator implements ConstraintValidator<UsuarioAtualizado, UsuarioAtualizadoDTO> {
 
 	@Autowired
 	private HttpServletRequest request;
@@ -28,19 +28,17 @@ public class UsuarioAtualizadoValidator implements ConstraintValidator<UsuarioAt
 	public void initialize(UsuarioAtualizado constraintAnnotation) {}
 
 	@Override
-	@SuppressWarnings("unlikely-arg-type")
-	public boolean isValid(UsuarioDTO usuarioDTO, ConstraintValidatorContext context) {
+	public boolean isValid(UsuarioAtualizadoDTO dto, ConstraintValidatorContext context) {
 		
 		@SuppressWarnings("unchecked")
 		Map<String, String> map = (Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
-		Integer uriId = Integer.parseInt(map.get("id"));
+		Long uriId = Long.parseLong(map.get("id"));
 
 		List<FieldMessage> lista = new ArrayList<>();
 		
-		Usuario usuario = usuarioRepository.findByEmail(usuarioDTO.getEmail());
-		
+		Usuario usuario = usuarioRepository.findByEmail(dto.getEmail());
 		if (usuario != null && !usuario.getId().equals(uriId)) {
-			lista.add(new FieldMessage("email", "e-Mail já existente"));
+			lista.add(new FieldMessage("email", "e-Mail existente"));
 		}
 		
 		for (FieldMessage e : lista) {

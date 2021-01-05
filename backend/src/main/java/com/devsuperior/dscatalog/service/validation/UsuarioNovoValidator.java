@@ -22,14 +22,14 @@ public class UsuarioNovoValidator implements ConstraintValidator<UsuarioNovo, Us
 	public void initialize(UsuarioNovo constraintAnnotation) {}
 
 	@Override
-	public boolean isValid(UsuarioNovoDTO usuarioNovoDTO, ConstraintValidatorContext context) {
+	public boolean isValid(UsuarioNovoDTO dto, ConstraintValidatorContext context) {
 
 		List<FieldMessage> lista = new ArrayList<>();
 		
-		Usuario usuario = usuarioRepository.findByEmail(usuarioNovoDTO.getEmail());
+		Usuario usuario = usuarioRepository.findByEmail(dto.getEmail());
 		
 		if (usuario != null) {
-			lista.add(new FieldMessage("email", "e-Mail já existente"));
+			lista.add(new FieldMessage("email", "e-Mail existente"));
 		}
 		
 		for (FieldMessage e : lista) {
