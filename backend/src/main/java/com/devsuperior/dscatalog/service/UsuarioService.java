@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.devsuperior.dscatalog.dto.PerfilDTO;
+import com.devsuperior.dscatalog.dto.UsuarioAtualizadoDTO;
 import com.devsuperior.dscatalog.dto.UsuarioDTO;
 import com.devsuperior.dscatalog.dto.UsuarioNovoDTO;
 import com.devsuperior.dscatalog.model.Perfil;
@@ -65,7 +66,7 @@ public class UsuarioService {
 	}
 
 	@Transactional
-	public UsuarioDTO atualizar(Long id, UsuarioDTO dto) {
+	public UsuarioDTO atualizar(Long id, UsuarioAtualizadoDTO dto) {
 		try {
 			Usuario usuario = usuarioRepository.getOne(id);
 			converterDeDTO(dto, usuario);

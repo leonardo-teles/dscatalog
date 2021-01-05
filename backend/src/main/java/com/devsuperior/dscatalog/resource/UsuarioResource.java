@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.devsuperior.dscatalog.dto.UsuarioAtualizadoDTO;
 import com.devsuperior.dscatalog.dto.UsuarioDTO;
 import com.devsuperior.dscatalog.dto.UsuarioNovoDTO;
 import com.devsuperior.dscatalog.service.UsuarioService;
@@ -62,10 +63,10 @@ public class UsuarioResource {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<UsuarioDTO> atualizar(@Valid @PathVariable Long id, @RequestBody UsuarioDTO dto) {
-		dto = usuarioService.atualizar(id, dto);
+	public ResponseEntity<UsuarioDTO> atualizar(@Valid @PathVariable Long id, @RequestBody UsuarioAtualizadoDTO dto) {
+		UsuarioDTO novoDto = usuarioService.atualizar(id, dto);
 		
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.ok().body(novoDto);
 	}
 	
 	@DeleteMapping("/{id}")
