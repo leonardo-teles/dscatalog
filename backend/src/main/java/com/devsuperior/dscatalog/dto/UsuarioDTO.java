@@ -1,52 +1,39 @@
-package com.devsuperior.dscatalog.model;
+package com.devsuperior.dscatalog.dto;
 
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import com.devsuperior.dscatalog.model.Usuario;
 
-@Entity
-@Table(name = "usuarios")
-public class Usuario implements Serializable {
+public class UsuarioDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	private String nome;
 	
 	private String sobrenome;
 	
-	@Column(unique = true)
 	private String email;
 	
-	private String senha;
-	
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "usuario_perfil",  joinColumns = @JoinColumn(
-			   name = "usuario_id"), inverseJoinColumns = @JoinColumn(
-			   name = "perfil_id"))
-	private Set<Perfil> perfis = new HashSet<>();
+	private Set<PerfilDTO> perfis = new HashSet<>();
 
-	public Usuario() {}
+	public UsuarioDTO() {}
 
-	public Usuario(Long id, String nome, String sobrenome, String email, String senha) {
+	public UsuarioDTO(Long id, String nome, String sobrenome, String email) {
 		this.id = id;
 		this.nome = nome;
 		this.sobrenome = sobrenome;
 		this.email = email;
-		this.senha = senha;
+	}
+	
+	public UsuarioDTO(Usuario usuario) {
+		id = usuario.getId();
+		nome = usuario.getNome();
+		sobrenome = usuario.getSobrenome();
+		email = usuario.getEmail();
+		usuario.getPerfis().forEach(perfil -> this.perfis.add(new PerfilDTO(perfil)));
 	}
 
 	public Long getId() {
@@ -80,16 +67,8 @@ public class Usuario implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
 	
-	public Set<Perfil> getPerfis() {
+	public Set<PerfilDTO> getPerfis() {
 		return perfis;
 	}
 
@@ -109,7 +88,7 @@ public class Usuario implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Usuario other = (Usuario) obj;
+		UsuarioDTO other = (UsuarioDTO) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

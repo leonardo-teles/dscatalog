@@ -98,5 +98,4 @@ public class ProdutoService {
 			produto.getCategorias().add(categoria);
 		}
 	}
-	
 }
