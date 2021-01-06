@@ -1,5 +1,5 @@
-INSERT INTO usuarios (nome, sobrenome, email, senha) VALUES ('Leonardo', 'Almeida', 'leonardo@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG');
-INSERT INTO usuarios (nome, sobrenome, email, senha) VALUES ('Manuela', 'Almeida', 'manuela@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG');
+INSERT INTO usuarios (nome, sobrenome, email, senha) VALUES ('Leonardo', 'Almeida', 'leonardo@gmail.com', '$2a$10$frpomhk.21U4lItJt.RGKeke/WVc2hk3/xlRcy57LW.u/tSnH6jRa');
+INSERT INTO usuarios (nome, sobrenome, email, senha) VALUES ('Manuela', 'Almeida', 'manuela@gmail.com', '$2a$10$HMgBGjaJ6sGKJSxrElxM/ur4EjCmPK8.gDypU1080bY/n8m5QyIpm');
 
 INSERT INTO perfis (descricao) VALUES ('ROLE_OPERADOR');
 INSERT INTO perfis (descricao) VALUES ('ROLE_ADMIN');
