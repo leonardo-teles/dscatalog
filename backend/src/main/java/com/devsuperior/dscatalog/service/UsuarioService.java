@@ -4,11 +4,16 @@ import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,8 +30,10 @@ import com.devsuperior.dscatalog.service.exception.DataIntegrityException;
 import com.devsuperior.dscatalog.service.exception.ObjectNotFoundException;
 
 @Service
-public class UsuarioService {
+public class UsuarioService implements UserDetailsService {
 
+	private static Logger logger = LoggerFactory.getLogger(UsuarioService.class);
+	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
@@ -102,6 +109,18 @@ public class UsuarioService {
 			Perfil perfil = perfilRepository.getOne(perfilDTO.getId());
 			usuario.getPerfis().add(perfil);
 		}
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		Usuario usuario = usuarioRepository.findByEmail(email);
+		if(usuario == null) {
+			logger.error("Usuário não encontrado: " + email);
+			throw new UsernameNotFoundException("Usuário não encontrado");
+		}
+		logger.info("Usuário encontrado: " + email);
+		
+		return usuario;
 	}
 
 }
