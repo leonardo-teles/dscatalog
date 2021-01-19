@@ -5,6 +5,7 @@ import Admin from './pages/admin';
 import Catalogo from './pages/catalogo';
 import DetalheProduto from './pages/catalogo/components/detalheProduto';
 import Home from './pages/home';
+import Auth from './pages/auth';
 
 const Routes = () => (
     <BrowserRouter>
@@ -18,6 +19,9 @@ const Routes = () => (
             </Route>
             <Route path="/produtos/:idProduto">
                 <DetalheProduto/>
+            </Route>
+            <Route path="/admin/auth">
+                <Auth/>
             </Route>
             <Redirect from="/admin" to="/admin/produtos" exact/>
             <Route path="/admin">
