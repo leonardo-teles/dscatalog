@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import AuthCard from '../card';
@@ -14,21 +14,34 @@ type FormData = {
 
 const Login = () => {
     const { register, handleSubmit } = useForm<FormData>();
+    const [hasError, setHasError] = useState(false);
 
     const onSubmit = (data: FormData) => {
-        console.log(data);
-        makeLogin(data);
+        makeLogin(data)
+            .then(response => {
+                setHasError(false);
+            })
+            .catch(() => {
+                setHasError(true);
+            })
     }
 
     return (
         <AuthCard titulo="login">
+
+            {hasError && (
+                <div className="alert alert-danger mt-5">
+                    Usuário o senha inválidos!
+                </div>
+            )}    
+
             <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
                 <input 
                     type="email" 
                     className="form-control input-base margin-bottom-30" 
                     placeholder="e-Mail" 
                     name="username" 
-                    ref={register}
+                    ref={register({required: true})}
                 />
                 
                 <input 
@@ -36,7 +49,7 @@ const Login = () => {
                     className="form-control input-base" 
                     placeholder="senha" 
                     name="password" 
-                    ref={register}
+                    ref={register({required: true})}
                 />
                 
                 <Link to="/admin/auth/recuperar" className="login-link-recuperar">
