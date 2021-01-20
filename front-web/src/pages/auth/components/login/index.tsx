@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import AuthCard from '../card';
 import ButtonIcon from 'core/components/buttonIcon';
+import { makeLogin } from 'core/utils/request';
 
 import './styles.scss';
 
 type FormData = {
-    email: string;
-    senha: string;
+    username: string;
+    password: string;
 }
 
 const Login = () => {
@@ -16,13 +17,28 @@ const Login = () => {
 
     const onSubmit = (data: FormData) => {
         console.log(data);
+        makeLogin(data);
     }
 
     return (
         <AuthCard titulo="login">
             <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
-                <input type="email" className="form-control input-base margin-bottom-30" placeholder="e-Mail" name="email" ref={register}/>
-                <input type="password" className="form-control input-base" placeholder="senha" name="senha" ref={register}/>
+                <input 
+                    type="email" 
+                    className="form-control input-base margin-bottom-30" 
+                    placeholder="e-Mail" 
+                    name="username" 
+                    ref={register}
+                />
+                
+                <input 
+                    type="password" 
+                    className="form-control input-base" 
+                    placeholder="senha" 
+                    name="password" 
+                    ref={register}
+                />
+                
                 <Link to="/admin/auth/recuperar" className="login-link-recuperar">
                     Esqueceu a senha?
                 </Link>
