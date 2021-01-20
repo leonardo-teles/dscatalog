@@ -1,8 +1,9 @@
 import React from 'react';
 import { ReactComponent as AuthImage }  from 'core/assets/imagens/auth.svg';
+import { Route, Switch } from 'react-router-dom';
+import Login from './components/login';
 
 import './styles.scss';
-import { Route, Switch } from 'react-router-dom';
 
 const Auth = () => (
     <div className="auth-container">
@@ -18,7 +19,7 @@ const Auth = () => (
         <div className="conteudo-auth">
             <Switch>
                 <Route path="/admin/auth/login">
-                    <h3>Login</h3>    
+                    <Login />                        
                 </Route>
                 <Route path="/admin/auth/cadastro">
                     <h5>Cadastro</h5>
