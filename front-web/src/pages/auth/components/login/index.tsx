@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import AuthCard from '../card';
 import ButtonIcon from 'core/components/buttonIcon';
 import { makeLogin } from 'core/utils/request';
 
 import './styles.scss';
+import { saveSessionData } from 'core/utils/auth';
 
 type FormData = {
     username: string;
@@ -15,11 +16,14 @@ type FormData = {
 const Login = () => {
     const { register, handleSubmit } = useForm<FormData>();
     const [hasError, setHasError] = useState(false);
+    const history = useHistory();
 
     const onSubmit = (data: FormData) => {
         makeLogin(data)
             .then(response => {
                 setHasError(false);
+                saveSessionData(response.data);
+                history.push('/admin');
             })
             .catch(() => {
                 setHasError(true);
