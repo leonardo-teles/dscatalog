@@ -1,5 +1,5 @@
-import { makeRequest } from 'core/utils/request';
 import React, { useState } from 'react';
+import { makePrivateRequest } from 'core/utils/request';
 import FormularioBase from '../../formularioBase';
 
 import './styles.scss';
@@ -37,7 +37,7 @@ const Formulario = () => {
             categorias: [{ id: formData.categoria }]
         }
         
-        makeRequest({ url: '/produtos', method: 'POST', data: payload })
+        makePrivateRequest({ url: '/produtos', method: 'POST', data: payload })
             .then(() => {
                 setFormData({ nome: '', categoria: '', preco: '', descricao: '' });
         });
