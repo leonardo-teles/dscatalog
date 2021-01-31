@@ -7,7 +7,6 @@ import DetalheProduto from './pages/catalogo/components/detalheProduto';
 import Home from './pages/home';
 import Auth from './pages/auth';
 import history from './core/utils/history';
-import PrivateRoute from 'core/components/rotas/privateRoute';
 
 const Routes = () => (
     <Router history={history}>
@@ -27,9 +26,9 @@ const Routes = () => (
                 <Auth/>
             </Route>
             <Redirect from="/admin" to="/admin/produtos" exact/>
-            <PrivateRoute path="/admin">
+            <Route path="/admin">
                 <Admin/>
-            </PrivateRoute>
+            </Route>
         </Switch>
     </Router>
 );
