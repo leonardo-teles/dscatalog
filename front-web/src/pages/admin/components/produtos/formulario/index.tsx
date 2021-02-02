@@ -13,10 +13,11 @@ type FormState = {
 }
 
 const Formulario = () => {
-    const { register, handleSubmit } = useForm<FormState>();
+    const { register, handleSubmit, errors } = useForm<FormState>();
    
     const onSubmit = (data: FormState) => { 
-        makePrivateRequest({ url: '/produtos', method: 'POST', data });        
+        console.log(data);
+        // makePrivateRequest({ url: '/produtos', method: 'POST', data });        
     }
 
     return (
@@ -25,27 +26,52 @@ const Formulario = () => {
 
                 <div className="row">
                     <div className="col-6">
-                        <input 
-                            ref={register({required: "Campo obrigatório"})}
-                            name="nome"
-                            type="text" 
-                            className="form-control margin-bottom-30 input-base"                            
-                            placeholder="Nome do prduto"
-                        />
-                        <input 
-                            ref={register({required: "Campo obrigatório"})}
-                            name="preco"
-                            type="number" 
-                            className="form-control margin-bottom-30 input-base"
-                            placeholder="Preço"
-                        />
-                        <input 
-                            ref={register({required: "Campo obrigatório"})}
-                            name="imgUrl"
-                            type="text" 
-                            className="form-control margin-bottom-30 input-base"
-                            placeholder="Imagem do prduto"
-                        />
+                        <div className="margin-bottom-30">
+                            <input 
+                                ref={register({
+                                    required: "Campo obrigatório",
+                                    minLength: {value: 5, message: 'O campo deve ter, no mínimo, 5 caracteres.'},
+                                    maxLength: {value: 60, message: 'O campo deve ter, no máximo, 60 caracteres.'}
+                                })}
+                                name="nome"
+                                type="text" 
+                                className="form-control input-base"                            
+                                placeholder="Nome do prduto"
+                            />
+                            {errors.nome && (
+                                <div className="invalid-feedback d-block">
+                                    {errors.nome.message}    
+                                </div>                    
+                            )}
+                        </div>
+                        <div className="margin-bottom-30">
+                            <input 
+                                ref={register({required: "Campo obrigatório"})}
+                                name="preco"
+                                type="number" 
+                                className="form-control input-base"
+                                placeholder="Preço"
+                            />
+                            {errors.preco && (
+                                <div className="invalid-feedback d-block">
+                                    {errors.preco.message}    
+                                </div>                    
+                            )}
+                        </div>
+                        <div className="margin-bottom-30">
+                            <input 
+                                ref={register({required: "Campo obrigatório"})}
+                                name="imgUrl"
+                                type="text" 
+                                className="form-control input-base"
+                                placeholder="Imagem do prduto"
+                            />
+                            {errors.imgUrl && (
+                                <div className="invalid-feedback d-block">
+                                    {errors.imgUrl.message}    
+                                </div>                    
+                            )}
+                        </div>
                     </div>
                     <div className="col-6">
                         <textarea 
@@ -56,6 +82,11 @@ const Formulario = () => {
                             cols={30} 
                             rows={10}>                                
                         </textarea>
+                        {errors.descricao && (
+                            <div className="invalid-feedback d-block">
+                                {errors.descricao.message}    
+                            </div>                    
+                        )}
                     </div>
                 </div>
             </FormularioBase>
