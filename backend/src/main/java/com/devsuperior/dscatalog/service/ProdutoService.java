@@ -52,6 +52,12 @@ public class ProdutoService {
 		Produto produto = new Produto();
 		converterDeDTO(dto, produto);
 		
+		//solucao provisoria para salvar produtos sem categorias no front-end
+		if(produto.getCategorias().size() == 0) {
+			Categoria categoria  = categoriaRepository.getOne(1L);
+			produto.getCategorias().add(categoria);
+		}
+		
 		produto = produtoRepository.save(produto);
 
 		return new ProdutoDTO(produto);
