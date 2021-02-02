@@ -18,13 +18,13 @@ const Auth = () => (
         </div>
         <div className="conteudo-auth">
             <Switch>
-                <Route path="/admin/auth/login">
+                <Route path="/auth/login">
                     <Login />                        
                 </Route>
-                <Route path="/admin/auth/cadastro">
+                <Route path="/auth/cadastro">
                     <h5>Cadastro</h5>
                 </Route>
-                <Route path="/admin/auth/recuperar">
+                <Route path="/auth/recuperar">
                     <h5>Recuperar Senha</h5>
                 </Route>
             </Switch>

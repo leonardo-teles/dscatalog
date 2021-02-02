@@ -82,7 +82,7 @@ const Login = () => {
                     )}
                 </div>                
                 
-                <Link to="/admin/auth/recuperar" className="login-link-recuperar">
+                <Link to="/auth/recuperar" className="login-link-recuperar">
                     Esqueceu a senha?
                 </Link>
                 <div className="login-submit">
@@ -92,7 +92,7 @@ const Login = () => {
                     <span className="nao-registrado">
                         Não tem cadastro?
                     </span>
-                    <Link to="/admin/auth/cadastro" className="login-link-cadastrar">
+                    <Link to="/auth/cadastro" className="login-link-cadastrar">
                         cadastrar
                     </Link>
                 </div>
