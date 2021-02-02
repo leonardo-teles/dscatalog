@@ -1,10 +1,23 @@
-import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { getAccessTokenDecoded, logout } from 'core/utils/auth';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 
 import './styles.scss';
 
 const Navbar = () => {
-    const usuarioCorrente = '';
+    const [usuarioCorrente, setUsuarioCorrente] = useState('');
+    const location = useLocation();
+
+    useEffect(() => {
+        const usuarioCorrenteData = getAccessTokenDecoded();
+        setUsuarioCorrente(usuarioCorrenteData.user_name);
+    }, [location]);
+
+
+    const handleLogout = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+        event.preventDefault();
+        logout();
+    }
 
     return (
         <nav className="row bg-primary main-nav">
@@ -36,7 +49,7 @@ const Navbar = () => {
                 { usuarioCorrente && (
                     <>
                         {usuarioCorrente}
-                        <a href="#logout" className="nav-link active d-inline">
+                        <a href="#logout" className="nav-link active d-inline" onClick={handleLogout}>
                             LOGOUT
                         </a>
                     </>
