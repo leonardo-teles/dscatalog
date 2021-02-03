@@ -1,0 +1,23 @@
+.admin-card-produto {
+    margin-bottom: 20px;
+    border-radius: 10px;
+
+    .moeda {
+        font-size: 14px;
+    }
+
+    .preco-produto {
+        font-size: 24px;
+    }
+}
+
+.admin-imagem-card-produto {
+    width: 100px;
+    height: 100px;
+}
+
+.admin-nome-produto-card {
+    font-size: 18px;
+    line-height: 25px;
+    letter-spacing: -0.015em;
+}

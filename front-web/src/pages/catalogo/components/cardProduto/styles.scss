@@ -1,6 +1,10 @@
 .card-produto {
     padding: 20px 20px 30px 20px;
     text-align: center;
+
+    .preco-produto-container {
+        margin-top: 10px;
+    }
 }
 
 .info-produto {
