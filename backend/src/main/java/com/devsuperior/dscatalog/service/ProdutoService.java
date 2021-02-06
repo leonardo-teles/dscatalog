@@ -32,9 +32,10 @@ public class ProdutoService {
 	
 	@Transactional(readOnly = true)
 	public Page<ProdutoDTO> buscarTodosComPaginacao(PageRequest pageRequest) {
-		Page<Produto> lista = produtoRepository.findAll(pageRequest);
+		Page<Produto> page = produtoRepository.findAll(pageRequest);
+		produtoRepository.find(page.toList());
 		
-		return lista.map(produto -> new ProdutoDTO(produto));
+		return page.map(produto -> new ProdutoDTO(produto, produto.getCategorias()));
 	}
 
 	@Transactional(readOnly = true)
