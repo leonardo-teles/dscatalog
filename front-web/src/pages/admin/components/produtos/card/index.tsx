@@ -4,11 +4,13 @@ import { Produto } from 'core/types/Produto';
 import { Link } from 'react-router-dom';
 
 import './styles.scss';
+
 type Props = {
     produto: Produto;
+    onRemove: (idProduto: number) => void;
 }
 
-const Card = ({ produto }: Props) => {
+const Card = ({ produto, onRemove }: Props) => {
     return (
         <div className="card-base admin-card-produto">
             <div className="row">
@@ -40,7 +42,8 @@ const Card = ({ produto }: Props) => {
                     </Link>
                     <button 
                         type="button" 
-                        className="btn btn-outline-danger btn-block border-radius-10">
+                        className="btn btn-outline-danger btn-block border-radius-10"
+                        onClick={() => onRemove(produto.id)} >
                         EXCLUIR
                     </button>
                 </div>

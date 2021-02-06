@@ -1,8 +1,9 @@
 import Paginacao from 'core/components/paginacao';
 import { ProdutosResponse } from 'core/types/Produto';
-import { makeRequest } from 'core/utils/request';
-import React, { useEffect, useState } from 'react';
+import { makePrivateRequest, makeRequest } from 'core/utils/request';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Card from '../card';
 
 const Lista = () => {
@@ -11,7 +12,7 @@ const Lista = () => {
     const [paginaAtiva, setPaginaAtiva] = useState(0);
     const history = useHistory();
 
-    useEffect(() => {
+    const getProdutos = useCallback(() => {
         const params = {
             pagina: paginaAtiva,
             linhasPorPagina: 4,
@@ -24,11 +25,30 @@ const Lista = () => {
             .then(response => setProdutosResponse(response.data))
             .finally(() => {
                 setIsLoading(false);
-            });
+        });
     }, [paginaAtiva]);
+
+    useEffect(() => {
+        getProdutos();
+    }, [getProdutos]);
 
     const handleCreate = () => {
         history.push('/admin/produtos/novo');
+    }
+
+    const onRemove = (idProduto: number) => {
+        const confirmacao = window.confirm('Deseja excluir este produto?');
+
+        if(confirmacao) {
+            makePrivateRequest({ url: `/produtos/${idProduto}`, method: 'DELETE' })
+             .then(() => {
+                toast.info('Produto removido com sucesso');
+                getProdutos();
+             })
+             .catch(() => {
+                toast.error('Erro ao remover produto');
+             });        
+        }
     }
 
     return (
@@ -39,7 +59,7 @@ const Lista = () => {
 
             <div className="admin-lista-container">
                 {produtosResponse?.content.map(produto => (
-                    <Card produto={produto} key={produto.id}/>
+                    <Card produto={produto} key={produto.id} onRemove={onRemove}/>
                 ))}
 
                 {produtosResponse && (
