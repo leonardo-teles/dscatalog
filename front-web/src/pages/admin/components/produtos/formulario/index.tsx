@@ -1,9 +1,9 @@
-import React from 'react';
-import { makePrivateRequest } from 'core/utils/request';
+import React, { useEffect } from 'react';
+import { makePrivateRequest, makeRequest } from 'core/utils/request';
 import FormularioBase from '../../formularioBase';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import './styles.scss';
 
@@ -14,13 +14,34 @@ type FormState = {
     imgUrl: string;
 }
 
-const Formulario = () => {
-    const { register, handleSubmit, errors } = useForm<FormState>();
-    const history = useHistory();
+type ParamsType = {
+    idProduto: string;
+}
 
+const Formulario = () => {
+    const { register, handleSubmit, errors, setValue } = useForm<FormState>();
+    const history = useHistory();
+    const { idProduto } = useParams<ParamsType>();
+    const isEdicao = idProduto !== 'novo';
+    const tituloFormulario = isEdicao ? 'Editar Produto' : 'Cadastrar Produto';
+
+    useEffect(() => {
+        if(isEdicao) {
+            makeRequest({ url: `/produtos/${idProduto}` })
+            .then(response => {
+                setValue('nome', response.data.nome);
+                setValue('preco', response.data.preco);
+                setValue('descricao', response.data.descricao);
+                setValue('imgUrl', response.data.imgUrl);
+            })
+        }
+    }, [idProduto, isEdicao, setValue]);    
 
     const onSubmit = (data: FormState) => { 
-        makePrivateRequest({ url: '/produtos', method: 'POST', data })
+        makePrivateRequest({ 
+                url: isEdicao ? `/produtos/${idProduto}` : '/produtos', 
+                method: isEdicao ? 'PUT' : 'POST', 
+                data })
             .then(() => {
                 toast.info('Produto salvo com sucesso');
                 history.push('/admin/produtos');
@@ -32,7 +53,7 @@ const Formulario = () => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <FormularioBase titulo="cadastrar produto">
+            <FormularioBase titulo={tituloFormulario}>
 
                 <div className="row">
                     <div className="col-6">

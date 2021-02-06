@@ -11,12 +11,12 @@ const Lista = () => {
     const [paginaAtiva, setPaginaAtiva] = useState(0);
     const history = useHistory();
 
-    console.log(produtosResponse);
-
     useEffect(() => {
         const params = {
             pagina: paginaAtiva,
-            linhasPorPagina: 4
+            linhasPorPagina: 4,
+            direcaoOrdenacao: 'DESC',
+            ordenarPor: 'id'
         }
 
         setIsLoading(true);

@@ -1,9 +1,9 @@
 import React from 'react';
 import PrecoProduto from 'core/components/precoProduto';
+import { Produto } from 'core/types/Produto';
+import { Link } from 'react-router-dom';
 
 import './styles.scss';
-import { Produto } from 'core/types/Produto';
-
 type Props = {
     produto: Produto;
 }
@@ -33,11 +33,11 @@ const Card = ({ produto }: Props) => {
                     </div>
                 </div>
                 <div className="col-3 pt-3 pr-5">
-                    <button 
+                    <Link to={`/admin/produtos/${produto.id}`}
                         type="button" 
                         className="btn btn-outline-secondary btn-block border-radius-10 mb-3 btn-edicao">
                         EDITAR
-                    </button>
+                    </Link>
                     <button 
                         type="button" 
                         className="btn btn-outline-danger btn-block border-radius-10">

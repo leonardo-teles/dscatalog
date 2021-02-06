@@ -29,7 +29,7 @@ const FormularioBase = ({ titulo, children }: Props) => {
                     CANCELAR
                 </button>
                 <button className="btn btn-primary boder-radius-10">
-                    CADASTRAR
+                    SALVAR
                 </button>
             </div>
         </div>

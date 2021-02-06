@@ -12,11 +12,8 @@ const Produtos = () => {
                 <Route path="/admin/produtos" exact>
                     <Lista/>
                 </Route>
-                <Route path="/admin/produtos/novo">
+                <Route path="/admin/produtos/:idProduto">
                     <Formulario />
-                </Route>
-                <Route path="/admin/produtos/:produtoId">
-                    <h5>Editar produto</h5>
                 </Route>
             </Switch>
         </div>
