@@ -5,6 +5,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Card from '../card';
+import CardLoader from '../loader/CardLoaderProduto';
 
 const Lista = () => {
     const [produtosResponse, setProdutosResponse] = useState<ProdutosResponse>();
@@ -58,10 +59,11 @@ const Lista = () => {
             </button>
 
             <div className="admin-lista-container">
-                {produtosResponse?.content.map(produto => (
-                    <Card produto={produto} key={produto.id} onRemove={onRemove}/>
-                ))}
-
+                {isLoading ? <CardLoader /> : (
+                    produtosResponse?.content.map(produto => (
+                        <Card produto={produto} key={produto.id} onRemove={onRemove}/>
+                    ))
+                )}
                 {produtosResponse && (
                     <Paginacao 
                         paginaAtiva={paginaAtiva}
