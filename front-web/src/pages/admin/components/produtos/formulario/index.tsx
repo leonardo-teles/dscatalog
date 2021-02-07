@@ -3,6 +3,7 @@ import { makePrivateRequest, makeRequest } from 'core/utils/request';
 import FormularioBase from '../../formularioBase';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import Select from 'react-select';
 import { useHistory, useParams } from 'react-router-dom';
 
 import './styles.scss';
@@ -17,6 +18,12 @@ type FormState = {
 type ParamsType = {
     idProduto: string;
 }
+
+const opcoes = [
+    {value: 'chocolate', label: 'Chocolate'},
+    {value: 'morango', label: 'Morango'},
+    {value: 'pipoca', label: 'Pipoca'},
+]
 
 const Formulario = () => {
     const { register, handleSubmit, errors, setValue } = useForm<FormState>();
@@ -74,6 +81,14 @@ const Formulario = () => {
                                     {errors.nome.message}    
                                 </div>                    
                             )}
+                        </div>
+                        <div className="margin-bottom-30">
+                            <Select 
+                                options={opcoes}
+                                classNamePrefix="select-categorias"
+                                placeholder="Categoria"
+                                isMulti
+                            />
                         </div>
                         <div className="margin-bottom-30">
                             <input 
