@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makePrivateRequest, makeRequest } from 'core/utils/request';
 import FormularioBase from '../../formularioBase';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import Select from 'react-select';
 import { useHistory, useParams } from 'react-router-dom';
+import { Categoria } from 'core/types/Produto';
 
 import './styles.scss';
 
@@ -13,22 +14,18 @@ type FormState = {
     preco: string;
     descricao: string;
     imgUrl: string;
+    categorias: Categoria[];
 }
 
 type ParamsType = {
     idProduto: string;
 }
-
-const opcoes = [
-    {value: 'chocolate', label: 'Chocolate'},
-    {value: 'morango', label: 'Morango'},
-    {value: 'pipoca', label: 'Pipoca'},
-]
-
 const Formulario = () => {
-    const { register, handleSubmit, errors, setValue } = useForm<FormState>();
+    const { register, handleSubmit, errors, setValue, control } = useForm<FormState>();
     const history = useHistory();
     const { idProduto } = useParams<ParamsType>();
+    const [isLoadingCategorias, setIsLoadingCategorias] = useState(false);
+    const [categorias, setCategorias] = useState<Categoria[]>([]);
     const isEdicao = idProduto !== 'novo';
     const tituloFormulario = isEdicao ? 'Editar Produto' : 'Cadastrar Produto';
 
@@ -40,9 +37,17 @@ const Formulario = () => {
                 setValue('preco', response.data.preco);
                 setValue('descricao', response.data.descricao);
                 setValue('imgUrl', response.data.imgUrl);
+                setValue('categorias', response.data.categorias);
             })
         }
     }, [idProduto, isEdicao, setValue]);    
+
+    useEffect(() => {
+        setIsLoadingCategorias(true);
+        makeRequest({ url: '/categorias' })
+            .then(response => setCategorias(response.data.content))
+            .finally(() => setIsLoadingCategorias(false));
+    }, []);
 
     const onSubmit = (data: FormState) => { 
         makePrivateRequest({ 
@@ -83,12 +88,24 @@ const Formulario = () => {
                             )}
                         </div>
                         <div className="margin-bottom-30">
-                            <Select 
-                                options={opcoes}
+                            <Controller
+                                as={Select} 
+                                name="categorias"
+                                rules={{ required: true }}
+                                control={control}
+                                isLoading={isLoadingCategorias}
+                                options={categorias}
+                                getOptionLabel={(option: Categoria) => option.nome}
+                                getOptionValue={(option: Categoria) => String(option.id)}
                                 classNamePrefix="select-categorias"
-                                placeholder="Categoria"
+                                placeholder="Categorias"
                                 isMulti
                             />
+                            {errors.categorias && (
+                                <div className="invalid-feedback d-block">
+                                    Campo obrigatório    
+                                </div>                    
+                            )}                            
                         </div>
                         <div className="margin-bottom-30">
                             <input 
