@@ -32,6 +32,7 @@ public class ProdutoResource {
 	
 	@GetMapping
 	public ResponseEntity<Page<ProdutoDTO>> buscarTodosComPaginacao(
+			@RequestParam(value = "idCategoria", defaultValue = "0") Long idCategoria,			
 			@RequestParam(value = "pagina", defaultValue = "0") Integer pagina, 
 			@RequestParam(value = "linhasPorPagina", defaultValue = "12") Integer linhasPorPagina, 
 			@RequestParam(value = "direcaoOrdenacao", defaultValue = "ASC") String direcaoOrdenacao,
@@ -39,7 +40,7 @@ public class ProdutoResource {
 		
 		PageRequest pageRequest = PageRequest.of(pagina, linhasPorPagina, Direction.valueOf(direcaoOrdenacao), ordernarPor);
 		
-		Page<ProdutoDTO> pageDto = produtoService.buscarTodosComPaginacao(pageRequest);
+		Page<ProdutoDTO> pageDto = produtoService.buscarTodosComPaginacao(idCategoria, pageRequest);
 		
 		return ResponseEntity.ok().body(pageDto);
 	}

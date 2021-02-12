@@ -31,8 +31,10 @@ public class ProdutoService {
 	private CategoriaRepository categoriaRepository;
 	
 	@Transactional(readOnly = true)
-	public Page<ProdutoDTO> buscarTodosComPaginacao(PageRequest pageRequest) {
-		Page<Produto> page = produtoRepository.findAll(pageRequest);
+	public Page<ProdutoDTO> buscarTodosComPaginacao(Long idCategoria, PageRequest pageRequest) {
+		Categoria categoria = (idCategoria == 0) ? null : categoriaRepository.getOne(idCategoria);
+		
+		Page<Produto> page = produtoRepository.buscarComCategoria(categoria, pageRequest);
 		produtoRepository.find(page.toList());
 		
 		return page.map(produto -> new ProdutoDTO(produto, produto.getCategorias()));
