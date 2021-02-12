@@ -31,10 +31,10 @@ public class ProdutoService {
 	private CategoriaRepository categoriaRepository;
 	
 	@Transactional(readOnly = true)
-	public Page<ProdutoDTO> buscarTodosComPaginacao(Long idCategoria, PageRequest pageRequest) {
+	public Page<ProdutoDTO> buscarTodosComPaginacao(Long idCategoria, String nome, PageRequest pageRequest) {
 		Categoria categoria = (idCategoria == 0) ? null : categoriaRepository.getOne(idCategoria);
 		
-		Page<Produto> page = produtoRepository.buscarComCategoria(categoria, pageRequest);
+		Page<Produto> page = produtoRepository.buscarComCategoria(categoria, nome.trim(), pageRequest);
 		produtoRepository.find(page.toList());
 		
 		return page.map(produto -> new ProdutoDTO(produto, produto.getCategorias()));
