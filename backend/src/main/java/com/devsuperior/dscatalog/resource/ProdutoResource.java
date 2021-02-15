@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.devsuperior.dscatalog.dto.ProdutoDTO;
+import com.devsuperior.dscatalog.dto.UriDTO;
 import com.devsuperior.dscatalog.service.ProdutoService;
 
 @RestController
@@ -74,5 +76,13 @@ public class ProdutoResource {
 		produtoService.apagar(id);
 		
 		return ResponseEntity.noContent().build();
-	}	
+	}
+	
+	@PostMapping(value = "/imagem")
+	public ResponseEntity<UriDTO> uploadImagem(@RequestParam("arquivo") MultipartFile arquivo) {
+		UriDTO dto = produtoService.uploadArquivo(arquivo);
+		
+		return ResponseEntity.ok().body(dto);
+	}
+	
 }

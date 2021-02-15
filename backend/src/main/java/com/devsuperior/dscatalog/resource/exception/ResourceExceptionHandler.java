@@ -11,6 +11,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.amazonaws.AmazonClientException;
+import com.amazonaws.AmazonServiceException;
 import com.devsuperior.dscatalog.service.exception.DataIntegrityException;
 import com.devsuperior.dscatalog.service.exception.ObjectNotFoundException;
 
@@ -44,5 +46,32 @@ public class ResourceExceptionHandler {
 		
 		return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(error);
 	}	
+	
+	@ExceptionHandler(AmazonServiceException.class)
+	public ResponseEntity<StandardError> amazonService(AmazonServiceException e, HttpServletRequest request) {
+
+		HttpStatus code = HttpStatus.valueOf(e.getErrorCode());
+		
+		StandardError error = new StandardError(Instant.now(), code.value(), "Erro Amazon Service", e.getMessage(), request.getRequestURI());
+		
+		return ResponseEntity.status(code).body(error);
+	}
+
+	@ExceptionHandler(AmazonClientException.class)
+	public ResponseEntity<StandardError> amazonClient(AmazonClientException e, HttpServletRequest request) {
+
+		StandardError error = new StandardError(Instant.now(), HttpStatus.BAD_REQUEST.value(), "Erro Amazon Client", e.getMessage(), request.getRequestURI());
+		
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+	}
+
+	@ExceptionHandler(IllegalArgumentException.class)
+	public ResponseEntity<StandardError> illegalArgument(IllegalArgumentException e, HttpServletRequest request) {
+		
+		StandardError error = new StandardError(Instant.now(), HttpStatus.BAD_REQUEST.value(), "Erro Inesperado", e.getMessage(), request.getRequestURI()); 
+		
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+	}	
+	
 	
 }

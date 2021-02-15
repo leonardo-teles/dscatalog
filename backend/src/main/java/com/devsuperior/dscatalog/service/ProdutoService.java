@@ -1,5 +1,6 @@
 package com.devsuperior.dscatalog.service;
 
+import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -13,9 +14,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.devsuperior.dscatalog.dto.CategoriaDTO;
 import com.devsuperior.dscatalog.dto.ProdutoDTO;
+import com.devsuperior.dscatalog.dto.UriDTO;
 import com.devsuperior.dscatalog.model.Categoria;
 import com.devsuperior.dscatalog.model.Produto;
 import com.devsuperior.dscatalog.repository.CategoriaRepository;
@@ -31,6 +34,9 @@ public class ProdutoService {
 	
 	@Autowired
 	private CategoriaRepository categoriaRepository;
+	
+	@Autowired
+	private S3Service s3Service;
 	
 	@Transactional(readOnly = true)
 	public Page<ProdutoDTO> buscarTodosComPaginacao(Long idCategoria, String nome, PageRequest pageRequest) {
@@ -107,5 +113,11 @@ public class ProdutoService {
 			Categoria categoria = categoriaRepository.getOne(categoriaDTO.getId());
 			produto.getCategorias().add(categoria);
 		}
+	}
+
+	public UriDTO uploadArquivo(MultipartFile arquivo) {
+		URL url = s3Service.uploadFile(arquivo);
+		
+		return new UriDTO(url.toString());
 	}
 }
