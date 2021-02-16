@@ -3,9 +3,9 @@ package com.devsuperior.dscatalog.service;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.time.Instant;
 
 import org.apache.commons.io.FilenameUtils;
+import org.joda.time.Instant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class S3Service {
 			
 			String nomeOriginal = arquivo.getOriginalFilename();
 			String extensao = FilenameUtils.getExtension(nomeOriginal);
-			String nomeArquivo = Instant.now() + "." + extensao;
+			String nomeArquivo = Instant.now().toDate().getTime() + "." + extensao;
 			
 			InputStream is = arquivo.getInputStream();
 			String contentType = arquivo.getContentType();

@@ -7,6 +7,7 @@ import CardLoaderProduto from './components/loaders/CardLoaderProduto';
 import CardProduto from './components/cardProduto';
 import Paginacao from 'core/components/paginacao';
 import './styles.scss'
+import FiltroProduto from 'core/components/filtroProduto';
 
 const Catalogo = () => {
     const [produtosResponse, setProdutosResponse] = useState<ProdutosResponse>();
@@ -29,11 +30,15 @@ const Catalogo = () => {
     
     return (
         <div className="catalogo-container">
-            <h1 className="titulo-catalogo">
-                Catálogo de Produtos
-            </h1>
+            <div className="d-flex justify-content-between">
+                <h1 className="titulo-catalogo">
+                    Catálogo de Produtos
+                </h1>
+                <FiltroProduto />
+            </div>
+
             <div className="catalogo-produtos">
-                {isLoading ? <CardLoaderProduto/> : (
+                {isLoading ? <CardLoaderProduto /> : (
                     produtosResponse?.content.map(produto => (
                         <Link to={`/produtos/${produto.id}`} key={produto.id}>
                             <CardProduto produto={produto}/>
