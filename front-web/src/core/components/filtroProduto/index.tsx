@@ -6,47 +6,25 @@ import { Categoria } from 'core/types/Produto';
 
 import './styles.scss';
 
-export type FormFiltro = {
-    nome?: string;
-    idCategoria?: number;
-}
-
 type Props = {
-    onSearch: (filtro: FormFiltro) => void;
+    nome?: string;
+    categoria?: Categoria;
+    handleChangeName: (nome: string) => void;
+    handleChangeCategoria: (categoria: Categoria) => void;
+    limparFiltros: () => void;
 }
 
-const FiltroProduto = ({ onSearch }: Props) => {
+const FiltroProduto = ({ nome, handleChangeName, handleChangeCategoria, limparFiltros, categoria }: Props) => {
 
     const [isLoadingCategorias, setIsLoadingCategorias] = useState(false);
     const [categorias, setCategorias] = useState<Categoria[]>([]);
-    const [nome, setNome] = useState('');
-    const [categoria, setCategoria] = useState<Categoria>();
-
+    
     useEffect(() => {
         setIsLoadingCategorias(true);
         makeRequest({ url: '/categorias' })
             .then(response => setCategorias(response.data.content))
             .finally(() => setIsLoadingCategorias(false));
     }, []);
-
-    const handleChangeName = (nome: string) => {
-        setNome(nome);
-
-        onSearch({ nome, idCategoria: categoria?.id })
-    }
-
-    const handleChangeCategoria = (categoria: Categoria) => {
-        setCategoria(categoria);
-
-        onSearch({ nome, idCategoria: categoria?.id })
-    }
-
-    const limparFiltros = () => {
-        setCategoria(undefined);
-        setNome('');
-
-        onSearch({ nome: '', idCategoria: undefined })
-    }
 
     return (
         <div className="card-base filtro-produto-container">
