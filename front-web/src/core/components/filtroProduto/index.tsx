@@ -20,6 +20,7 @@ const FiltroProduto = ({ onSearch }: Props) => {
     const [isLoadingCategorias, setIsLoadingCategorias] = useState(false);
     const [categorias, setCategorias] = useState<Categoria[]>([]);
     const [nome, setNome] = useState('');
+    const [categoria, setCategoria] = useState<Categoria>();
 
     useEffect(() => {
         setIsLoadingCategorias(true);
@@ -31,7 +32,20 @@ const FiltroProduto = ({ onSearch }: Props) => {
     const handleChangeName = (nome: string) => {
         setNome(nome);
 
-        onSearch({ nome });
+        onSearch({ nome, idCategoria: categoria?.id })
+    }
+
+    const handleChangeCategoria = (categoria: Categoria) => {
+        setCategoria(categoria);
+
+        onSearch({ nome, idCategoria: categoria?.id })
+    }
+
+    const limparFiltros = () => {
+        setCategoria(undefined);
+        setNome('');
+
+        onSearch({ nome: '', idCategoria: undefined })
     }
 
     return (
@@ -48,15 +62,22 @@ const FiltroProduto = ({ onSearch }: Props) => {
             </div>
             <Select
                 name="categorias"
+                key={`select-${categoria?.id}`}
                 isLoading={isLoadingCategorias}
                 options={categorias}
+                value={categoria}
                 getOptionLabel={(option: Categoria) => option.nome}
                 getOptionValue={(option: Categoria) => String(option.id)}
                 className="select-container"
                 classNamePrefix="select-categorias"
                 placeholder="Categorias"
+                onChange={value => handleChangeCategoria(value as Categoria)}
+                isClearable
             />
-            <button className="btn btn-outline-secondary border-radius-10">
+            <button 
+                className="btn btn-outline-secondary border-radius-10"
+                onClick={limparFiltros}
+            >
                 <strong>LIMPAR FILTRO</strong>
             </button>
 
