@@ -6,10 +6,20 @@ import { Categoria } from 'core/types/Produto';
 
 import './styles.scss';
 
-const FiltroProduto = () => {
+export type FormFiltro = {
+    nome?: string;
+    idCategoria?: number;
+}
+
+type Props = {
+    onSearch: (filtro: FormFiltro) => void;
+}
+
+const FiltroProduto = ({ onSearch }: Props) => {
 
     const [isLoadingCategorias, setIsLoadingCategorias] = useState(false);
     const [categorias, setCategorias] = useState<Categoria[]>([]);
+    const [nome, setNome] = useState('');
 
     useEffect(() => {
         setIsLoadingCategorias(true);
@@ -18,10 +28,22 @@ const FiltroProduto = () => {
             .finally(() => setIsLoadingCategorias(false));
     }, []);
 
+    const handleChangeName = (nome: string) => {
+        setNome(nome);
+
+        onSearch({ nome });
+    }
+
     return (
         <div className="card-base filtro-produto-container">
             <div className="input-pesquisa">
-                <input type="text" className="form-control" placeholder="Pesquisar Produto"/>
+                <input 
+                    type="text" 
+                    value={nome}
+                    className="form-control" 
+                    placeholder="Pesquisar Produto" 
+                    onChange={event => handleChangeName(event.target.value)}
+                />
                 <IconeBusca />
             </div>
             <Select

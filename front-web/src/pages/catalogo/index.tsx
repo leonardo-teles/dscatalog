@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ProdutosResponse } from 'core/types/Produto';
 import { makeRequest } from 'core/utils/request';
@@ -6,18 +6,21 @@ import CardLoaderProduto from './components/loaders/CardLoaderProduto';
 
 import CardProduto from './components/cardProduto';
 import Paginacao from 'core/components/paginacao';
+import FiltroProduto, { FormFiltro } from 'core/components/filtroProduto';
+
 import './styles.scss'
-import FiltroProduto from 'core/components/filtroProduto';
 
 const Catalogo = () => {
     const [produtosResponse, setProdutosResponse] = useState<ProdutosResponse>();
     const [isLoading, setIsLoading] = useState(false);
     const [paginaAtiva, setPaginaAtiva] = useState(0);
 
-    useEffect(() => {
+    const getProdutos = useCallback((filtro?: FormFiltro) => {
         const params = {
             pagina: paginaAtiva,
-            linhasPorPagina: 12
+            linhasPorPagina: 12,
+            nome: filtro?.nome,
+            idCategoria: filtro?.idCategoria
         }
 
         setIsLoading(true);
@@ -26,7 +29,12 @@ const Catalogo = () => {
             .finally(() => {
                 setIsLoading(false);
             });
+
     }, [paginaAtiva]);
+
+    useEffect(() => {
+        getProdutos();
+    }, [getProdutos]);
     
     return (
         <div className="catalogo-container">
@@ -34,7 +42,7 @@ const Catalogo = () => {
                 <h1 className="titulo-catalogo">
                     Catálogo de Produtos
                 </h1>
-                <FiltroProduto />
+                <FiltroProduto onSearch={filtro => getProdutos(filtro)}/>
             </div>
 
             <div className="catalogo-produtos">
