@@ -66,7 +66,6 @@ const Lista = () => {
                 )}
                 {produtosResponse && (
                     <Paginacao 
-                        paginaAtiva={paginaAtiva}
                         totalPaginas={produtosResponse.totalPages} 
                         onChange={pagina => setPaginaAtiva(pagina)}
                     />

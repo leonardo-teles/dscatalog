@@ -79,8 +79,7 @@ const Catalogo = () => {
                 )}
             </div>
             {produtosResponse && (
-                <Paginacao 
-                    paginaAtiva={paginaAtiva}
+                <Paginacao
                     totalPaginas={produtosResponse.totalPages} 
                     onChange={pagina => setPaginaAtiva(pagina)}
                 />
