@@ -19,3 +19,22 @@
     line-height: 19px;
     letter-spacing: -0.015em;
 }
+
+.upload-placeholder {
+    .container-progresso-upload {
+        position: absolute;
+        bottom: 10px;
+        left: 25px;
+        height: 10px;
+        border-radius: 10px;
+        background: #E1E1E1;
+        width: 175px;
+    }
+
+    .progresso-upload {
+        background: #407BFF;
+        border-radius: 10px;
+        height: 10px;
+        width: 65%;
+    }
+}
