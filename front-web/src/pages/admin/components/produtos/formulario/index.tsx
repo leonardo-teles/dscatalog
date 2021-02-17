@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import Select from 'react-select';
 import { useHistory, useParams } from 'react-router-dom';
 import { Categoria } from 'core/types/Produto';
+import UploadImagem from '../uploadImagem';
 
 import './styles.scss';
 
@@ -122,18 +123,7 @@ const Formulario = () => {
                             )}
                         </div>
                         <div className="margin-bottom-30">
-                            <input 
-                                ref={register({required: "Campo obrigatório"})}
-                                name="imgUrl"
-                                type="text" 
-                                className="form-control input-base"
-                                placeholder="Imagem do prduto"
-                            />
-                            {errors.imgUrl && (
-                                <div className="invalid-feedback d-block">
-                                    {errors.imgUrl.message}    
-                                </div>                    
-                            )}
+                            <UploadImagem />
                         </div>
                     </div>
                     <div className="col-6">
