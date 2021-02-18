@@ -2,8 +2,34 @@ import React from 'react';
 import { ReactComponent as UploadPlaceholder } from 'core/assets/imagens/upload-placeholder.svg';
 
 import './styles.scss';
+import { makePrivateRequest } from 'core/utils/request';
 
 const UploadImagem = () => {
+    const upload = (imagemSelecionada: File) => {
+        const payload = new FormData();
+        payload.append('arquivo', imagemSelecionada);
+
+        makePrivateRequest({
+            url: '/produtos/imagem', 
+            method: 'post',
+            data: payload
+        })
+        .then(() => {
+            console.log('arquivo enviado com sucesso');
+        })
+        .catch(() => {
+            console.log('erro ao enviar arquivo');
+        })
+    }
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const imagemSelecionada = event.target.files?.[0];
+
+        if(imagemSelecionada) {
+            upload(imagemSelecionada);
+        }
+    }
+
     return (
         <div className="row">
             <div className="col-6">
@@ -11,6 +37,8 @@ const UploadImagem = () => {
                     <input 
                         type="file"
                         id="upload"
+                        accept="image/png, image/jpg"
+                        onChange={handleChange}
                         hidden
                     />
                     <label htmlFor="upload">ADICIONAR IMAGEM</label>
