@@ -3,6 +3,13 @@
     padding: 0 40px 50px  40px;
 }
 
+.filtro-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .titulo-catalogo {
     font-size: 24px;
     line-height: 33px;
@@ -15,4 +22,20 @@
     grid-template-columns: repeat(auto-fill, 250px);
     grid-gap: 33px 20px;
     justify-content: space-between;
+}
+
+@media(max-width: 768px) {
+    .filtro-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .titulo-catalogo {
+        margin-bottom: 20px;
+    }
+
+    .catalogo-produtos {
+        grid-template-columns: repeat(auto-fill, 200px);
+        grid-gap: 33px 10px;
+    }
 }
