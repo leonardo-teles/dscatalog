@@ -7,14 +7,15 @@ import Select from 'react-select';
 import { useHistory, useParams } from 'react-router-dom';
 import { Categoria } from 'core/types/Produto';
 import UploadImagem from '../uploadImagem';
+import Descricao from './descricao';
+import { EditorState } from 'draft-js';
 
 import './styles.scss';
-import Descricao from './descricao';
 
 export type FormState = {
     nome: string;
     preco: string;
-    descricao: string;
+    descricao: EditorState;
     imgUrl: string;
     categorias: Categoria[];
 }
@@ -150,7 +151,7 @@ const Formulario = () => {
                         <Descricao control={control}/>
                         {errors.descricao && (
                             <div className="invalid-feedback d-block">
-                                {errors.descricao.message}    
+                                {errors.descricao}    
                             </div>                    
                         )}
                     </div>
