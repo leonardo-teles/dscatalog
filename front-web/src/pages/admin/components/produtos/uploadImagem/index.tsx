@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import { ReactComponent as UploadPlaceholder } from 'core/assets/imagens/upload-placeholder.svg';
-
-import './styles.scss';
 import { makePrivateRequest } from 'core/utils/request';
 import { toast } from 'react-toastify';
 
-const UploadImagem = () => {
+import './styles.scss';
+
+type Props = {
+    onUploadSuccess: (imgUrl: string) => void;
+}
+
+const UploadImagem = ({ onUploadSuccess }: Props) => {
 
     const [progressoUpload, setProgressoUpload] = useState(0);
+    const [urlImagem, setUrlImagem] = useState('');
     
     const onUploadProgress = (progressEvent: ProgressEvent) => {
         const progressoCarregamento = Math.round((progressEvent.loaded * 100) / progressEvent.total);
@@ -25,13 +30,14 @@ const UploadImagem = () => {
             data: payload,
             onUploadProgress
         })
-        .then(() => {
-            console.log('arquivo enviado com sucesso');
+        .then(response => {
+            setUrlImagem(response.data.uri);
+            onUploadSuccess(response.data.uri);
         })
         .catch(() => {
             toast.error('Erro ao enviar arquivo');        
         })
-        .finally(() => setProgressoUpload(0))
+        .finally(() => setProgressoUpload(0));
     }
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,12 +66,23 @@ const UploadImagem = () => {
                 </small>
             </div>
             <div className="col-6 upload-placeholder">
-                <UploadPlaceholder />
-                <div className="container-progresso-upload">
-                    <div className="progresso-upload" style={{ width: `${progressoUpload}%` }}>
+                {progressoUpload > 0 && (
+                    <>
+                        <UploadPlaceholder />
+                        <div className="container-progresso-upload">
+                            <div className="progresso-upload" style={{ width: `${progressoUpload}%` }}>
 
-                    </div>
-                </div>
+                            </div>
+                        </div>
+                    </>
+                )}
+                {(urlImagem && progressoUpload === 0) && (
+                    <img 
+                        src={urlImagem} 
+                        alt={urlImagem}
+                        className="uploaded-image"
+                    />)                
+                }
             </div>
         </div>
     )
