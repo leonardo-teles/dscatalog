@@ -7,12 +7,14 @@ import './styles.scss';
 
 type Props = {
     onUploadSuccess: (imgUrl: string) => void;
+    urlImagemProduto: string;
 }
 
-const UploadImagem = ({ onUploadSuccess }: Props) => {
+const UploadImagem = ({ onUploadSuccess, urlImagemProduto }: Props) => {
 
     const [progressoUpload, setProgressoUpload] = useState(0);
     const [urlImagem, setUrlImagem] = useState('');
+    const imgUrl = urlImagem || urlImagemProduto;
     
     const onUploadProgress = (progressEvent: ProgressEvent) => {
         const progressoCarregamento = Math.round((progressEvent.loaded * 100) / progressEvent.total);
@@ -76,10 +78,10 @@ const UploadImagem = ({ onUploadSuccess }: Props) => {
                         </div>
                     </>
                 )}
-                {(urlImagem && progressoUpload === 0) && (
+                {(imgUrl && progressoUpload === 0) && (
                     <img 
-                        src={urlImagem} 
-                        alt={urlImagem}
+                        src={imgUrl} 
+                        alt={imgUrl}
                         className="uploaded-image"
                     />)                
                 }

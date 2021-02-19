@@ -28,6 +28,8 @@ const Formulario = () => {
     const [isLoadingCategorias, setIsLoadingCategorias] = useState(false);
     const [categorias, setCategorias] = useState<Categoria[]>([]);
     const [urlImagem, setUrlImagem] = useState('');
+    const [urlImagemProduto, setUrlImagemProduto] = useState('');
+
     const isEdicao = idProduto !== 'novo';
     const tituloFormulario = isEdicao ? 'Editar Produto' : 'Cadastrar Produto';
 
@@ -38,8 +40,9 @@ const Formulario = () => {
                 setValue('nome', response.data.nome);
                 setValue('preco', response.data.preco);
                 setValue('descricao', response.data.descricao);
-                setValue('imgUrl', response.data.imgUrl);
                 setValue('categorias', response.data.categorias);
+
+                setUrlImagemProduto(response.data.imgUrl);
             })
         }
     }, [idProduto, isEdicao, setValue]);    
@@ -134,7 +137,10 @@ const Formulario = () => {
                             )}
                         </div>
                         <div className="margin-bottom-30">
-                            <UploadImagem onUploadSuccess={onUploadSuccess}/>
+                            <UploadImagem 
+                                onUploadSuccess={onUploadSuccess}
+                                urlImagemProduto={urlImagemProduto}
+                            />
                         </div>
                     </div>
                     <div className="col-6">
