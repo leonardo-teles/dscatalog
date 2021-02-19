@@ -57,7 +57,7 @@ const Formulario = () => {
     const onSubmit = (data: FormState) => { 
         const payload = {
             ...data,
-            imgUrl: urlImagem
+            imgUrl: urlImagem || urlImagemProduto
         }
         
         makePrivateRequest({ 
