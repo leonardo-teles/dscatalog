@@ -9,8 +9,9 @@ import { Categoria } from 'core/types/Produto';
 import UploadImagem from '../uploadImagem';
 
 import './styles.scss';
+import Descricao from './descricao';
 
-type FormState = {
+export type FormState = {
     nome: string;
     preco: string;
     descricao: string;
@@ -114,6 +115,8 @@ const Formulario = () => {
                                 getOptionValue={(option: Categoria) => String(option.id)}
                                 classNamePrefix="select-categorias"
                                 placeholder="Categorias"
+                                inputId="categorias"
+                                defaultValue=""
                                 isMulti
                             />
                             {errors.categorias && (
@@ -144,14 +147,7 @@ const Formulario = () => {
                         </div>
                     </div>
                     <div className="col-6">
-                        <textarea 
-                            ref={register({required: "Campo obrigatório"})}
-                            name="descricao" 
-                            className="form-control input-base"
-                            placeholder="Descrição"
-                            cols={30} 
-                            rows={10}>                                
-                        </textarea>
+                        <Descricao control={control}/>
                         {errors.descricao && (
                             <div className="invalid-feedback d-block">
                                 {errors.descricao.message}    
