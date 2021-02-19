@@ -8,7 +8,9 @@ import { useHistory, useParams } from 'react-router-dom';
 import { Categoria } from 'core/types/Produto';
 import UploadImagem from '../uploadImagem';
 import Descricao from './descricao';
-import { EditorState } from 'draft-js';
+import { EditorState, convertToRaw } from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
+import { stateFromHTML } from 'draft-js-import-html';
 
 import './styles.scss';
 
@@ -39,12 +41,17 @@ const Formulario = () => {
         if(isEdicao) {
             makeRequest({ url: `/produtos/${idProduto}` })
             .then(response => {
+                const estadoDoConteudo = stateFromHTML(response.data.descricao);
+                const estadoDaDescricao = EditorState.createWithContent(estadoDoConteudo);
+
                 setValue('nome', response.data.nome);
                 setValue('preco', response.data.preco);
-                setValue('descricao', response.data.descricao);
                 setValue('categorias', response.data.categorias);
-
+                
                 setUrlImagemProduto(response.data.imgUrl);
+                
+                setValue('descricao', estadoDaDescricao);
+
             })
         }
     }, [idProduto, isEdicao, setValue]);    
@@ -56,9 +63,14 @@ const Formulario = () => {
             .finally(() => setIsLoadingCategorias(false));
     }, []);
 
+    const getDescricaoDoEditor = (editorState: EditorState) => {
+        return draftToHtml(convertToRaw(editorState.getCurrentContent()));
+    } 
+
     const onSubmit = (data: FormState) => { 
         const payload = {
             ...data,
+            descricao: getDescricaoDoEditor(data.descricao),
             imgUrl: urlImagem || urlImagemProduto
         }
         

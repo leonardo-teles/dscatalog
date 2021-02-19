@@ -13,6 +13,7 @@ const Descricao = ({control}: Props) => (
     <Controller
         name="descricao"
         control={control}
+        defaultValue=""
         render={({ value, onChange }) => (
             <Editor
             toolbarClassName="toolbar-container"
