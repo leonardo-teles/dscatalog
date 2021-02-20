@@ -1,6 +1,8 @@
 .admin-card-produto {
     margin-bottom: 20px;
     border-radius: 10px;
+    display: flex;
+    flex-direction: row;
 
     .moeda {
         font-size: 14px;
@@ -14,10 +16,17 @@
 .admin-imagem-card-produto {
     width: 100px;
     height: 100px;
+    margin: 0px 10px;
 }
 
 .admin-nome-produto-card {
     font-size: 18px;
     line-height: 25px;
     letter-spacing: -0.015em;
+}
+
+@media(max-width: 768px) {
+    .conteudo-card {
+        margin-left: 10px;
+    }
 }

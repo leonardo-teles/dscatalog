@@ -13,14 +13,13 @@ type Props = {
 const Card = ({ produto, onRemove }: Props) => {
     return (
         <div className="card-base admin-card-produto">
-            <div className="row">
-                <div className="col-2 text-center border-right py-3">
+            <div className="text-center border-right py-3">
                     <img src={produto.imgUrl}
                          alt={produto.nome}
                          className="admin-imagem-card-produto"/>
                 </div>
                 <div className="col-7 py-3">
-                    <h3 className="admin-nome-produto-card">
+                    <h3 className="conteudo-card admin-nome-produto-card">
                         {produto.nome}
                     </h3>
                     <PrecoProduto preco={produto.preco} />
@@ -46,8 +45,7 @@ const Card = ({ produto, onRemove }: Props) => {
                         onClick={() => onRemove(produto.id)} >
                         EXCLUIR
                     </button>
-                </div>
-            </div>
+            </div>            
         </div>
     )
 }
