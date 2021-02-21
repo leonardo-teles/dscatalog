@@ -13,13 +13,13 @@ type Props = {
 const Card = ({ produto, onRemove }: Props) => {
     return (
         <div className="card-base admin-card-produto">
-            <div className="text-center border-right py-3">
+            <div className="text-center border-right py-3 borda-imagem">
                     <img src={produto.imgUrl}
                          alt={produto.nome}
                          className="admin-imagem-card-produto"/>
                 </div>
-                <div className="col-7 py-3">
-                    <h3 className="conteudo-card admin-nome-produto-card">
+                <div className="conteudo-card">
+                    <h3 className="admin-nome-produto-card">
                         {produto.nome}
                     </h3>
                     <PrecoProduto preco={produto.preco} />
@@ -33,15 +33,15 @@ const Card = ({ produto, onRemove }: Props) => {
                         </span>
                     </div>
                 </div>
-                <div className="col-3 pt-3 pr-5">
+                <div className="btn-container">
                     <Link to={`/admin/produtos/${produto.id}`}
                         type="button" 
-                        className="btn btn-outline-secondary btn-block border-radius-10 mb-3">
+                        className="btn btn-outline-secondary btn-block border-radius-10 btn-produto">
                         EDITAR
                     </Link>
                     <button 
                         type="button" 
-                        className="btn btn-outline-danger btn-block border-radius-10"
+                        className="btn btn-outline-danger btn-block border-radius-10 btn-produto"
                         onClick={() => onRemove(produto.id)} >
                         EXCLUIR
                     </button>

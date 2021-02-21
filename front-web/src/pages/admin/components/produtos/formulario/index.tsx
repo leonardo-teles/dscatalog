@@ -96,7 +96,7 @@ const Formulario = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
             <FormularioBase titulo={tituloFormulario}>
 
-                <div className="row">
+                <div className="container-formulario-produto">
                     <div className="col-6">
                         <div className="margin-bottom-30">
                             <input 

@@ -1,8 +1,10 @@
 .admin-card-produto {
     margin-bottom: 20px;
+    padding: 10px 20px;
     border-radius: 10px;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 
     .moeda {
         font-size: 14px;
@@ -19,6 +21,23 @@
     margin: 0px 10px;
 }
 
+.conteudo-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    flex: 1;
+    padding-left: 30px;
+}
+
+.btn-container {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
 .admin-nome-produto-card {
     font-size: 18px;
     line-height: 25px;
@@ -28,5 +47,35 @@
 @media(max-width: 768px) {
     .conteudo-card {
         margin-left: 10px;
+    }
+}
+
+@media(max-width: 576px) {
+    .admin-card-produto {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .conteudo-card {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .btn-container {
+        width: 100%;
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+        justify-content: space-around;
+        margin: 10px 0px;
+    }
+
+    .btn-produto {
+        width: 135px !important;
+        margin: 0px !important;
+    }
+
+    .borda-imagem {
+        border-bottom: 1px solid #cecece;
     }
 }

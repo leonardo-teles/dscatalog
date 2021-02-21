@@ -41,22 +41,20 @@ const DetalheProduto = () => {
                     <ArrowIcon className="icone-voltar"/>
                     <h1 className="texto-voltar">voltar</h1>               
                 </Link>
-                <div className="info-detalhes-produto">
-                    <div className="col-6 pr-5">
-                        {isLoading ? <LoaderInformacaoProduto/> : (
-                            <>
-                                <div className="card-detalhe-produto text-center">
-                                    <img src={produto?.imgUrl} alt={produto?.nome} className="imagem-detalhe-produto"/>
-                                </div>
-                                <div className="campos-info-produto">
-                                    <h1 className="nome-detalhe-produto">
-                                        {produto?.nome}
-                                    </h1>
-                                    { produto?.preco && <PrecoProduto preco={produto?.preco}/> }
-                                </div>
-                            </>
-                        )}
-                    </div>
+                <div className="info-detalhes-produto">                
+                    {isLoading ? <LoaderInformacaoProduto/> : (
+                        <>
+                            <div className="card-detalhe-produto text-center">
+                                <img src={produto?.imgUrl} alt={produto?.nome} className="imagem-detalhe-produto"/>
+                            </div>
+                            <div className="campos-info-produto">
+                                <h1 className="nome-detalhe-produto">
+                                    {produto?.nome}
+                                </h1>
+                                { produto?.preco && <PrecoProduto preco={produto?.preco}/> }
+                            </div>
+                        </>
+                    )}                    
                     <div className="card-detalhe-produto">
                         {isLoading ? <LoaderDescricaoProduto/> : (
                             <>

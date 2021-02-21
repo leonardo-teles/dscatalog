@@ -52,7 +52,15 @@ const Navbar = () => {
                             <li>
                                 {
                                     usuarioCorrente && (
-                                        <a href="#logout" className="nav-link active d-inline" onClick={() => setMenuActive(false)}>
+                                        <a 
+                                            href="#logout" 
+                                            className="nav-link active d-inline" 
+                                            onClick={(e) => {
+                                                setMenuActive(false);
+                                                handleLogout(e)
+                                            }}
+                                        >
+
                                             {`LOGOUT - ${usuarioCorrente}`}
                                         </a>
                                     )

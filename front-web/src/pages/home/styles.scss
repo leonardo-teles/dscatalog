@@ -73,7 +73,29 @@
 }
 
 @media(max-width: 576px) {
+    .home-content {
+        flex-direction: column-reverse;
+        padding: 0px;
+    }
 
+    .imagem-principal {
+        width: 70vw !important;
+        margin: -100px 0px -80px -80px;
+    }
+
+    .titulo-texto {
+        font-size: 1.5rem;
+        text-align: center;
+        line-height: 30px;
+        letter-spacing: 0;
+    }
+
+    .subtitulo-texto {
+        font-size: 0.7em;
+        text-align: center;
+        font-weight: 400;
+        margin: 40px 0px;
+    }
 }
 
 

@@ -103,3 +103,40 @@
         width: 460px;
     }
 }
+
+@media(max-width: 576px) {
+    .detalhe-produto-container {
+        margin-top: 5px;
+        padding: 10px;
+    }
+
+    .detalhe-produto {
+        display: flex;
+        flex-direction: column;
+        padding: 30px;
+    }
+
+    .card-detalhe-produto {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .imagem-detalhe-produto {
+        width: 200px;
+        height: 200px;
+    }
+
+    .campos-info-produto {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .text-descricao-produto {
+        width: 90%;
+    }
+}
