@@ -42,3 +42,10 @@
         height: 200px;
     }
 }
+
+@media(max-width: 768px) {
+    .container-botao-upload label {
+        word-wrap: none;
+        width: 200px;
+    }
+}
