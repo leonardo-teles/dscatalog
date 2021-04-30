@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 
+import ProductPrice from '../../../../core/components/ProductPrice';
 import { ReactComponent as ArrowIcon } from '../../../../core/assets/images/arrow.svg';
 import { ReactComponent as ProductImage } from '../../../../core/assets/images/product.svg';
 
@@ -29,6 +30,7 @@ const ProductDetails = () => {
                         <h1 className="product-details-name">
                             Computador Desktop - Intel Core i7
                         </h1>
+                        <ProductPrice price="3.799,00"/>
                     </div>
 
                     <div className="col-6 product-details-card">
