@@ -1,7 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
+import ButtonIcon from '../../core/components/ButtonIcon';
+import { ReactComponent as MainImage } from '../../core/assets/images/main-image.svg';
 
 import './styles.scss';
-import { ReactComponent as MainImage } from '../../core/assets/images/main-image.svg';
 
 const Home = () => (
     <div className="home-container">
@@ -14,6 +17,10 @@ const Home = () => (
                 <p className="text-subtitle">
                     Ajudaremos você a encontrar os melhores <br/> produtos disponíveis no mercado.
                 </p>
+
+                <Link to="/catalog">
+                    <ButtonIcon text="inicie agora a sua busca"/>                
+                </Link>
             </div>
 
             <div className="col-6">
