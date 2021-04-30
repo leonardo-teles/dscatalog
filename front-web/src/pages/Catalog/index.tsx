@@ -11,9 +11,6 @@ const Catalog = () => (
         <div className="catalog-products">
             <ProductCard />
             <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
             
         </div>
     </div>
