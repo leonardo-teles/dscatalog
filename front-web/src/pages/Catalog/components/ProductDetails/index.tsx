@@ -1,6 +1,9 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
+import { ReactComponent as ArrowIcon } from '../../../../core/assets/images/arrow.svg';
+
+import './styles.scss';
 
 type ParamsType = {
     productId: string;
@@ -12,7 +15,12 @@ const ProductDetails = () => {
 
     return(
         <div className="products-details-container">
-            <h1>detalhes do produto</h1>
+            <div className="card-base border-radius-20 product-details">
+                <Link to="/products" className="products-details-goback">
+                    <ArrowIcon className="icon-goback"/>
+                    <h1 className="text-goback">voltar</h1>
+                </Link>
+            </div>            
         </div>
     );
 };
