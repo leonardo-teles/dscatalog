@@ -3,7 +3,7 @@ import React from 'react';
 import './styles.scss';
 
 type Props = {
-    price: string;
+    price: number;
 }
 
 const ProductPrice = ({ price }: Props) => (
