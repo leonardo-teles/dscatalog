@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
-import { Product } from '../../../../core/types/Product';
-import { makeRequest } from '../../../../core/utils/request';
-import ProductPrice from '../../../../core/components/ProductPrice';
-import { ReactComponent as ArrowIcon } from '../../../../core/assets/images/arrow.svg';
+import { Product } from 'core/types/Product';
+import { makeRequest } from 'core/utils/request';
+import ProductPrice from 'core/components/ProductPrice';
+import { ReactComponent as ArrowIcon } from 'core/assets/images/arrow.svg';
 
 import ProductInfoLoader from '../Loaders/ProductInfoLoader';
 import ProductDescriptionLoader from '../Loaders/ProductDescriptionLoader';
