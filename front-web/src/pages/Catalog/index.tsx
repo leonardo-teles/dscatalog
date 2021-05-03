@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import ProductCard from './components/ProductCard';
 import { makeRequest } from '../../core/utils/request';
 import { ProductsResponse } from '../../core/types/Product';
-import ProductCardLoader from './components/ProductCardLoader';
+import ProductCardLoader from './components/Loaders/ProductCardLoader';
 
 import './styles.scss';
 
@@ -23,7 +23,7 @@ const Catalog = () => {
             .then(response => setProductsResponse(response.data))
             .finally(() => {
                 setIsLoading(false);
-            })
+            });
     }, []);
 
     return (
