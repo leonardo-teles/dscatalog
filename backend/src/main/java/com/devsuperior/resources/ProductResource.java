@@ -36,11 +36,13 @@ public class ProductResource {
 			@RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction,
 			@RequestParam(value = "orderBy", defaultValue = "name") String orderBy,
-			@RequestParam(value = "categoryId", defaultValue = "0") Long categoryId
+			@RequestParam(value = "categoryId", defaultValue = "0") Long categoryId,
+			@RequestParam(value = "name", defaultValue = "") String name
 			) {
 		
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		Page<ProductDTO> list = service.findAllPaged(categoryId, pageRequest);
+		
+		Page<ProductDTO> list = service.findAllPaged(categoryId, name.trim(), pageRequest);
 		
 		return ResponseEntity.ok().body(list);
 	}
