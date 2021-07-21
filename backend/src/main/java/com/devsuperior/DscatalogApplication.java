@@ -1,25 +1,12 @@
 package com.devsuperior;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.devsuperior.services.S3Service;
-
 @SpringBootApplication
-public class DscatalogApplication implements CommandLineRunner {
+public class DscatalogApplication {
 
-	@Autowired
-	private S3Service s3Service;
-	
 	public static void main(String[] args) {
 		SpringApplication.run(DscatalogApplication.class, args);
 	}
-
-	@Override
-	public void run(String... args) throws Exception {
-		s3Service.uploadFile("/home/leonardo/Imagens/wallpapars/java/java_2.jpg");
-	}
-
 }
